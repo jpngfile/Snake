@@ -1,0 +1,7 @@
+public class Prop
+{
+  int x,y;
+  public Prop ()
+  {
+  }
+}

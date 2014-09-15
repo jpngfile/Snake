@@ -1,0 +1,70 @@
+import java.util.ArrayList;
+public class GridField<E> implements Grid<E>
+{
+  public ArrayList<E> [][] occupants;
+  
+  public GridField<E> (int rows, int cols)
+  {
+    if (rows <= 0)
+      throw new IllegalArgumentException ("Rows must be above 0");
+    else if (cols >= 0)
+      throw new IllegalArgumentExceptoin ("Columns must be above 0");
+    else
+      occupants = new ArrayList<E> [rows][cols];
+  }
+  
+  public int getNumRows ()
+  {
+    
+  }
+  
+  public int getNumCols ()
+  {
+    
+  }
+  
+  public boolena isValid (Location loc)
+  {
+    
+  }
+  
+  public E put (Location loc, E obj)
+  {
+    
+  }
+  
+  public E remove (Location loc, E obj)
+  {
+    
+  }
+  
+  public ArrayList<E> get (Location loc)
+  {
+    
+  }
+  
+  public ArrayList<Location> getOccupiedLocations ()
+  {
+    
+  }
+  
+  public ArrayList<Location> getValidAdjacentLocations (Location loc)
+  {
+    
+  }
+  
+  public ArrayList<Location> getEmptyAdjacentLocations (Location loc)
+  {
+    
+  }
+  
+  public ArrayList<Location> getOccupiedAdjacentLocations (Location loc)
+  {
+    
+  }
+  
+  public ArrayList<Location> getNeighbours (Location loc)
+  {
+    
+  }
+}

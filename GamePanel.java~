@@ -1,0 +1,114 @@
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+public class GamePanel extends JPanel
+{
+  final int BOARD_LENGTH = 18;
+  final long UPDATE_RATE = 10;
+  int [][] board = new int [BOARD_LENGTH][BOARD_LENGTH];
+  SnakeSegment s = new SnakeSegment (5,5);
+  boolean isRunning = false;
+  public GamePanel ()
+  {
+    setPreferredSize (new Dimension (500,500));
+    setBackground (Color.CYAN);
+    //addKeyListener (new KListen ());
+    setVisible (true);
+  }
+  
+  public void updateThis ()
+  {
+    System.out.println ("Updatred");
+    isRunning = true;
+    int counter = 0;
+    //Why a new Thread?
+    //because java threads.
+    //Thread.sleep() pauses the EDT halting painting
+    //research to find out more about Threads
+    new Thread () {
+      public void run (){
+while (isRunning)
+{
+      long timeBeforeMillis,timePassedMillis,timeLeftMillis;
+      timeBeforeMillis = System.currentTimeMillis();
+      updateSnake();
+      repaint ();
+      //System.out.println (s.getX() + ", " + s.getY());
+      
+      timePassedMillis = System.currentTimeMillis() - timeBeforeMillis;
+      timeLeftMillis = 1000L / UPDATE_RATE - timePassedMillis;
+      if (timeLeftMillis < 50)
+        timeLeftMillis = 50;
+      //counter += (int)timeLeftMillis;
+      try
+      {
+        Thread.sleep (timeLeftMillis);
+      }
+      catch (InterruptedException e)
+      {
+      }
+}
+}
+    }.start();
+  }
+  public void updateSnake ()
+  {
+    int d = s.getDirection ();
+    switch (d){
+      case SnakeSegment.UP :
+        if (s.getY() > 0){
+        s.setY (s.getY() - 1);
+      }
+        break;
+      case SnakeSegment.DOWN :
+        if (s.getY() < BOARD_LENGTH){
+        s.setY (s.getY() + 1);
+      }
+        break;
+      case SnakeSegment.RIGHT :
+        if (s.getX() < BOARD_LENGTH){
+        s.setX (s.getX() + 1);
+      }
+        break;
+      case SnakeSegment.LEFT :
+        if (s.getX() >0){
+        s.setX (s.getX() - 1);
+      }
+        break;
+    }
+  }
+
+  protected void paintComponent (Graphics g)
+  {
+    super.paintComponent (g);
+    System.out.println ("Painted");
+    g.setColor (Color.BLACK);
+    g.fillRect (0,0,500,500);
+    g.setColor (Color.WHITE);
+    g.drawOval (25*s.getX(),25*s.getY(),25,25);
+  }
+  
+  public void keyPressed (KeyEvent k)
+  {
+    int key = k.getKeyCode ();
+    switch (key){
+      case KeyEvent.VK_UP :
+        //move up
+        s.setDirection (SnakeSegment.UP);
+        break;
+      case KeyEvent.VK_DOWN :
+        //move down
+        s.setDirection (SnakeSegment.DOWN);
+        break;
+      case KeyEvent.VK_RIGHT :
+        //move right
+        s.setDirection (SnakeSegment.RIGHT);
+        break;
+      case KeyEvent.VK_LEFT :
+        //move left
+        s.setDirection (SnakeSegment.LEFT);
+        break;
+    }
+  }
+  
+}
