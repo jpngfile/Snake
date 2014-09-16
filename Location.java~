@@ -1,13 +1,10 @@
 public class Location
 {
  int x,y;
- //Arraylist of occupants
- boolean occupied;
  public Location (int x, int y)
  {
    this.x = x;
    this.y = y;
-   this.occupied = occupied;
  }
  public int getX ()
  {
@@ -17,13 +14,5 @@ public class Location
  public int getY()
  {
    return y;
- }
- public boolean isOccupied ()
- {
-   return occupied;
- }
- public void setOccupied (boolean occupy)
- {
-   occupied = occupy;
  }
 }

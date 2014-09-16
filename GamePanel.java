@@ -75,7 +75,7 @@ while (isRunning)
     {
       Location loc = (new Location (l.getX(),w.map.getNumCols () -  l.getY()));
       
-      g.drawOval (25*loc.getX(),25*loc.getY(),25,25);
+      g.drawOval (25*loc.getX(),25*loc.getY() - 25,25,25);
     }
   }
   
@@ -86,27 +86,32 @@ while (isRunning)
     if (!updated)
     {
     int key = k.getKeyCode ();
+    int direction = GridField.getDirectionTowards (w.s.get(0).getLocation(),w.s.get(1).getLocation());
+    if (w.s.get(0).getLocation().equals (w.s.get(1).getLocation()))
+      direction = Integer.MAX_VALUE;
     switch (key){
       case KeyEvent.VK_UP :
         //move up
-        if (w.s.get(0).getDirection() != SnakeSegment.DOWN)
+        if (direction != SnakeSegment.DOWN)
         w.s.get(0).setDirection (SnakeSegment.UP);
         break;
       case KeyEvent.VK_DOWN :
         //move down
-        if (w.s.get(0).getDirection() != SnakeSegment.UP)
+        if (direction != SnakeSegment.UP)
         w.s.get(0).setDirection (SnakeSegment.DOWN);
         break;
       case KeyEvent.VK_RIGHT :
         //move right
-        if (w.s.get(0).getDirection() != SnakeSegment.LEFT)
+        if (direction != SnakeSegment.LEFT)
         w.s.get(0).setDirection (SnakeSegment.RIGHT);
         break;
       case KeyEvent.VK_LEFT :
         //move left
-        if (w.s.get(0).getDirection() != SnakeSegment.RIGHT)
+        if (direction != SnakeSegment.RIGHT)
         w.s.get(0).setDirection (SnakeSegment.LEFT);
         break;
+      case KeyEvent.VK_SPACE :
+        System.out.println (w.s.get(0).getLocation().toString());
     }
     updated = true;
     }

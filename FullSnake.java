@@ -56,7 +56,7 @@ public class FullSnake extends Prop
     Location l = s.get(0).getLocation ();
     switch (d){
       case Prop.UP :
-        if (l.getY() < getGrid().getNumCols()){
+        if (l.getY() <= getGrid().getNumCols()){
         s.get(0).setLoc (new Location (l.getX(),l.getY() + 1));
       }
         break;
@@ -66,7 +66,7 @@ public class FullSnake extends Prop
       }
         break;
       case Prop.RIGHT :
-        if (l.getX() < getGrid().getNumRows()){
+        if (l.getX() <= getGrid().getNumRows()){
         s.get(0).setLoc (new Location (l.getX() + 1,l.getY()));
       }
         break;

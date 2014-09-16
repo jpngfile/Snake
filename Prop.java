@@ -1,9 +1,9 @@
 public class Prop
 {
   final static int UP = 0;
-  final static int RIGHT = 1;
-  final static int DOWN = 2;
-  final static int LEFT = 3;
+  final static int RIGHT = 90;
+  final static int DOWN = 180;
+  final static int LEFT = 270;
   private Location location;
   private int direction;
   protected Grid<Prop> grid;
