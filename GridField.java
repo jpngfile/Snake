@@ -8,10 +8,18 @@ public class GridField<E> implements Grid<E>
   {
     if (rows <= 0)
       throw new IllegalArgumentException ("Rows must be above 0");
-    else if (cols >= 0)
+    else if (cols <= 0)
       throw new IllegalArgumentException ("Columns must be above 0");
     else
+    {
       occupants = new ArrayList[rows][cols];
+      for (int x = 0;x < rows;x++){
+        for (int y = 0; y < cols;y++){
+          occupants [x][y] = new ArrayList ();
+        }
+        
+      }
+    }
   }
   
   public int getNumRows ()
@@ -26,7 +34,7 @@ public class GridField<E> implements Grid<E>
   
   public boolean isValid (Location loc)
   {
-    if (loc.getX() < getNumRows() && loc.getY() < getNumCols())
+    if (loc.getX() < getNumRows() && loc.getX() >= 0 && loc.getY() < getNumCols() && loc.getY() >= 0)
     return true;
     return false;
   }
@@ -135,10 +143,15 @@ public class GridField<E> implements Grid<E>
   public static int SOUTHWEST = 225;
   public static int WEST = 275;
   public static int NORTHWEST = 315;
-  public Location getAdjacentLocation (Location loc, float direction)
+  
+  public static int formatDirection (float direction)
+  {
+    return (Math.round ((direction % 360f)/45f)) * 45;
+  }
+  public static Location getAdjacentLocation (Location loc, float direction)
   {
     //format the direction
-    int newDirection = (Math.round ((direction % 360f)/45f) * 45);
+    int newDirection = formatDirection (direction);
     int xFactor = 0;
     int yFactor = 0;
     //change to variable names
@@ -151,5 +164,30 @@ public class GridField<E> implements Grid<E>
     if (newDirection >= 225 && newDirection <= 315){
       xFactor = -1;}
     return new Location (loc.getX() + xFactor, loc.getY() + yFactor);  
+  }
+  
+ // @assert x and y are above 0
+  public static int getDirectionTowards (Location loc1, Location loc2)
+  {
+    int deltaX = loc2.getX() - loc1.getX();
+    int deltaY = loc2.getY() - loc1.getY();
+    double angle;
+    //if the angle will be negative
+    if (deltaX * deltaY < 0){
+      angle = Math.abs (Math.toDegrees (Math.atan (deltaY/deltaX)));
+      if (loc2.getX() < loc1.getX()){
+        angle += 270;
+      }
+      else{
+        angle += 90;
+      }
+    }
+    else{
+      angle = Math.toDegrees (Math.atan (deltaX/deltaY));
+      if (loc2.getX() < loc1.getX()){
+        angle += 180;
+      }
+    }
+    return formatDirection ((float)angle);
   }
 }

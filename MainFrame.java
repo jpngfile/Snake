@@ -41,6 +41,7 @@ public class MainFrame extends JFrame implements ActionListener
     cl.show (mainPanel, panel);
     revalidate ();
   }
+  
   class KListen extends KeyAdapter
   {
     public void keyPressed (KeyEvent e)

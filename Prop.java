@@ -1,48 +1,62 @@
 public class Prop
 {
-    final static int UP = 0;
+  final static int UP = 0;
   final static int RIGHT = 1;
   final static int DOWN = 2;
   final static int LEFT = 3;
-  private int x,y;
+  private Location location;
   private int direction;
-  private Grid<Prop> grid;
+  protected Grid<Prop> grid;
   //change x and y to a location
   //implement the grid
   // add the act method and the putting in grid
-  public Prop (int x, int y)
+  public Prop ()
   {
-   this.y =y;
-   this.x =y;
+    
    direction = RIGHT;
+   grid = null;
   }
-  public void setX (int x)
-  {
-    this.x = x;
+  public void putSelfInGrid (Grid<Prop> gr, Location loc)
+  {    
+    if (!gr.isValid(loc)){
+      throw new IllegalStateException ("Co-ordinate not on grid");}
+    grid = gr;
+    location = loc;
+    gr.put (loc, this);
   }
-  public void setY (int y)
-  {
-   this.y = y; 
-  }
+  
   public void setDirection (int dir)
   {
     this.direction = dir;
   }
+  
   public int getDirection ()
   {
     return direction;
   }
-  public int getX ()
+  
+  public void setLoc (Location loc)
   {
-    return x;
+   if (grid == null)
+     throw new IllegalStateException ("Not in a grid");
+   if (grid.isValid (loc)){    
+     grid.remove (location, this);
+     grid.put (loc, this);
+       location = loc;
+   }
   }
-  public int getY ()
+  public Location getLocation ()
   {
-    return y;
+   return location; 
   }
-  public void setLoc (int x, int y)
+  
+  public Grid<Prop> getGrid ()
   {
-   this.x = x;
-   this.y = y;
+    return grid;
+  }
+  //To be overrided to make props do stuff
+  public void act ()
+  {
+    
   }
 }

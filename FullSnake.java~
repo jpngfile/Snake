@@ -1,9 +1,18 @@
 import java.util.ArrayList;
+
+//This contains multiple snake segments.
+//It acts for the snake segments which otherwise do nothing at all.
 public class FullSnake extends Prop
 {
   ArrayList<SnakeSegment> s = new ArrayList<SnakeSegment>();
-  public FullSnake (int x, int y)
+  int length;
+  public FullSnake (int length)
   {
-    super (x, y);
+    super ();
+    this.length = length;
+    for (int x = 0; x < length; x++)
+    {
+      s.add (new SnakeSegment ());
+    }
   }
 }

@@ -2,8 +2,8 @@ import java.awt.*;
 
 public class SnakeSegment extends Prop
 {
-  public SnakeSegment (int x, int y)
+  public SnakeSegment ()
   {
-    super (x,y);
+    super ();
   }
 }

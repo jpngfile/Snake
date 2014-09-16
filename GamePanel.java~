@@ -1,21 +1,32 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 public class GamePanel extends JPanel
 {
   final int BOARD_LENGTH = 18;
   final long UPDATE_RATE = 10;
-  int [][] board = new int [BOARD_LENGTH][BOARD_LENGTH];
-  SnakeSegment s = new SnakeSegment (5,5);
+  int [][] board = new int [BOARD_LENGTH][BOARD_LENGTH];//replace with world
+  FullSnake s = new FullSnake ();
   boolean isRunning = false;
+  boolean updated = false;
+  
+  //Create a grid class of locations.
+  //This will be a map for all future endeavours
+  //Also, create a standard object to put in the Grid
   public GamePanel ()
   {
-    setPreferredSize (new Dimension (500,500));
+    setPreferredSize (new Dimension (500,525));
     setBackground (Color.CYAN);
+    initSnake();
     //addKeyListener (new KListen ());
     setVisible (true);
   }
   
+  public void initSnake ()
+  {
+    s.putSelfinGrid (
+  }
   public void updateThis ()
   {
     System.out.println ("Updatred");
@@ -51,32 +62,7 @@ while (isRunning)
 }
     }.start();
   }
-  public void updateSnake ()
-  {
-    int d = s.getDirection ();
-    switch (d){
-      case SnakeSegment.UP :
-        if (s.getY() > 0){
-        s.setY (s.getY() - 1);
-      }
-        break;
-      case SnakeSegment.DOWN :
-        if (s.getY() < BOARD_LENGTH){
-        s.setY (s.getY() + 1);
-      }
-        break;
-      case SnakeSegment.RIGHT :
-        if (s.getX() < BOARD_LENGTH){
-        s.setX (s.getX() + 1);
-      }
-        break;
-      case SnakeSegment.LEFT :
-        if (s.getX() >0){
-        s.setX (s.getX() - 1);
-      }
-        break;
-    }
-  }
+  
 
   protected void paintComponent (Graphics g)
   {
@@ -85,30 +71,43 @@ while (isRunning)
     g.setColor (Color.BLACK);
     g.fillRect (0,0,500,500);
     g.setColor (Color.WHITE);
-    g.drawOval (25*s.getX(),25*s.getY(),25,25);
+    for (int x = 0; x < s.size();x++){
+    g.drawOval (25*s.get(x).getX(),25*s.get(x).getY(),25,25);
+    }
   }
   
+  //kind of sticky
+  //Change so that it finds the direction of the previous segment and doesn't allow directions towards that.
   public void keyPressed (KeyEvent k)
   {
+    if (!updated)
+    {
     int key = k.getKeyCode ();
     switch (key){
       case KeyEvent.VK_UP :
         //move up
-        s.setDirection (SnakeSegment.UP);
+        if (s.get(0).getDirection() != SnakeSegment.DOWN)
+        s.get(0).setDirection (SnakeSegment.UP);
         break;
       case KeyEvent.VK_DOWN :
         //move down
-        s.setDirection (SnakeSegment.DOWN);
+        if (s.get(0).getDirection() != SnakeSegment.UP)
+        s.get(0).setDirection (SnakeSegment.DOWN);
         break;
       case KeyEvent.VK_RIGHT :
         //move right
-        s.setDirection (SnakeSegment.RIGHT);
+        if (s.get(0).getDirection() != SnakeSegment.LEFT)
+        s.get(0).setDirection (SnakeSegment.RIGHT);
         break;
       case KeyEvent.VK_LEFT :
         //move left
-        s.setDirection (SnakeSegment.LEFT);
+        if (s.get(0).getDirection() != SnakeSegment.RIGHT)
+        s.get(0).setDirection (SnakeSegment.LEFT);
         break;
     }
+    updated = true;
+    }
+    
   }
   
 }

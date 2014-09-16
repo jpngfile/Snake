@@ -4,10 +4,12 @@ public class World
 {
   GridField<Prop> map = new GridField<Prop>(18,18);
   ArrayList<Prop> things = new ArrayList<Prop>();
+  FullSnake s = new FullSnake (5);
   public boolean toast;
   public World ()
   {
-    
+    initWorld ();
+    things.add (s);
   }
   
   /**
@@ -16,5 +18,20 @@ public class World
    */
   public void update ()
   {
+    for (Prop p : things)
+    {
+      p.act();
+    }
   }
+  
+  public void initWorld ()
+  {
+    s.putSelfInGrid (map, new Location (0,0));
+  }
+  
+  public Grid<Prop> getMap ()
+  {
+    return map;
+  }
+  
 }
