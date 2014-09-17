@@ -171,6 +171,8 @@ public class GridField<E> implements Grid<E>
   //check corner cases
   public static int getDirectionTowards (Location loc1, Location loc2)
   {
+    if (loc1.equals (loc2))
+      return 0;
     int deltaX = loc2.getX() - loc1.getX();
     int deltaY = loc2.getY() - loc1.getY();
     double angle;
@@ -186,10 +188,15 @@ public class GridField<E> implements Grid<E>
     }
     else{
       if (deltaY == 0)
-        angle = 90;
+      {
+        if (deltaX < 0)
+          angle = 270;
+        else
+        angle = 90;        
+      }
       else
       angle = Math.toDegrees (Math.atan (deltaX/deltaY));
-      if (loc2.getX() < loc1.getX()){
+      if (loc2.getX() <= loc1.getX() && loc2.getY() < loc1.getY() ){
         angle += 180;
       }
     }

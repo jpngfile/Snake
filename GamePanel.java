@@ -81,6 +81,7 @@ while (isRunning)
   
   //kind of sticky
   //Change so that it finds the direction of the previous segment and doesn't allow directions towards that.
+  //I should really be moving this to snake. I'll do that next update
   public void keyPressed (KeyEvent k)
   {
     if (!updated)
@@ -92,23 +93,27 @@ while (isRunning)
     switch (key){
       case KeyEvent.VK_UP :
         //move up
-        if (direction != SnakeSegment.DOWN)
-        w.s.get(0).setDirection (SnakeSegment.UP);
+        if (direction != SnakeSegment.UP){
+        System.out.println (direction);
+        w.s.get(0).setDirection (SnakeSegment.UP);}
         break;
       case KeyEvent.VK_DOWN :
         //move down
-        if (direction != SnakeSegment.UP)
-        w.s.get(0).setDirection (SnakeSegment.DOWN);
+        if (direction != SnakeSegment.DOWN){
+        System.out.println (direction);
+        w.s.get(0).setDirection (SnakeSegment.DOWN);}
         break;
       case KeyEvent.VK_RIGHT :
         //move right
-        if (direction != SnakeSegment.LEFT)
-        w.s.get(0).setDirection (SnakeSegment.RIGHT);
+        if (direction != SnakeSegment.RIGHT){
+        System.out.println (direction);
+        w.s.get(0).setDirection (SnakeSegment.RIGHT);}
         break;
       case KeyEvent.VK_LEFT :
         //move left
-        if (direction != SnakeSegment.RIGHT)
-        w.s.get(0).setDirection (SnakeSegment.LEFT);
+        if (direction != SnakeSegment.LEFT){
+        System.out.println (direction);
+        w.s.get(0).setDirection (SnakeSegment.LEFT);}
         break;
       case KeyEvent.VK_SPACE :
         System.out.println (w.s.get(0).getLocation().toString());
