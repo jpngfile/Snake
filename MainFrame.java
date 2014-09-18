@@ -26,8 +26,8 @@ public class MainFrame extends JFrame implements ActionListener
     String a = ae.getActionCommand ();
     if (a.equals ("play")){
       show ("game");
-      gamePanel.updateThis ();
-      System.out.println ("press");   
+        gamePanel.updateThis ();
+        System.out.println ("WHY?");
     }
     else if (a.equals ("quit")){
       System.out.println ("Exit");
@@ -46,8 +46,14 @@ public class MainFrame extends JFrame implements ActionListener
   {
     public void keyPressed (KeyEvent e)
     {
+      int k = e.getKeyCode ();
       gamePanel.keyPressed (e);
-      System.out.println ("Fds");
+      //I need some kind of listener for variables
+      //Observable?
+      //reorganize to remove the thread?
+      if (k == KeyEvent.VK_M)
+        show("menu");
+      //System.out.println ("Fds");
     }    
   }
 }

@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 public class GamePanel extends JPanel
 {
+  //discontinued
   final int BOARD_LENGTH = 18;
   final long UPDATE_RATE = 10;
   World w = new World();
@@ -38,7 +39,11 @@ while (isRunning)
 {
       long timeBeforeMillis,timePassedMillis,timeLeftMillis;
       timeBeforeMillis = System.currentTimeMillis();
+      
       w.update ();
+      if (w.toast){
+        break;
+      }
       repaint ();
       updated = false;
       //System.out.println (s.getX() + ", " + s.getY());
@@ -56,12 +61,20 @@ while (isRunning)
       {
       }
 }
+
+//This part runs once the snake is dead.
+//reset the game here
+//return to main menu
 }
     }.start();
+    //end this.
+
+      //must find a way to return to the main menu
   }
   
 
   //invert the grid so that it is easier to use
+  //Will have to change to draw different kinds of shapes
   protected void paintComponent (Graphics g)
   {
     super.paintComponent (g);
@@ -86,41 +99,9 @@ while (isRunning)
   {
     if (!updated)
     {
-    int key = k.getKeyCode ();
-    int direction = GridField.getDirectionTowards (w.s.get(0).getLocation(),w.s.get(1).getLocation());
-    if (w.s.get(0).getLocation().equals (w.s.get(1).getLocation()))
-      direction = Integer.MAX_VALUE;
-    switch (key){
-      case KeyEvent.VK_UP :
-        //move up
-        if (direction != SnakeSegment.UP){
-        System.out.println (direction);
-        w.s.get(0).setDirection (SnakeSegment.UP);}
-        break;
-      case KeyEvent.VK_DOWN :
-        //move down
-        if (direction != SnakeSegment.DOWN){
-        System.out.println (direction);
-        w.s.get(0).setDirection (SnakeSegment.DOWN);}
-        break;
-      case KeyEvent.VK_RIGHT :
-        //move right
-        if (direction != SnakeSegment.RIGHT){
-        System.out.println (direction);
-        w.s.get(0).setDirection (SnakeSegment.RIGHT);}
-        break;
-      case KeyEvent.VK_LEFT :
-        //move left
-        if (direction != SnakeSegment.LEFT){
-        System.out.println (direction);
-        w.s.get(0).setDirection (SnakeSegment.LEFT);}
-        break;
-      case KeyEvent.VK_SPACE :
-        System.out.println (w.s.get(0).getLocation().toString());
-    }
-    updated = true;
-    }
-    
+    w.s.keyPressed (k);
+    updated = true; 
+    }       
   }
   
 }

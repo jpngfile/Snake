@@ -2,12 +2,14 @@ import java.util.ArrayList;
 
 public class World
 {
-  GridField<Prop> map = new GridField<Prop>(18,18);
+  GridField<Prop> map = new GridField<Prop>(19,19);
   ArrayList<Prop> things = new ArrayList<Prop>();
+  FullSnake s = new FullSnake (5);
   public boolean toast;
   public World ()
   {
-    
+    initWorld ();
+    things.add (s);
   }
   
   /**
@@ -16,37 +18,20 @@ public class World
    */
   public void update ()
   {
-  }
-  public void updateSnake ()
-  {
-    for (int x = s.size() - 1;x > 0;x--)
+    for (Prop p : things)
     {
-      s.get(x).setLoc (s.get(x - 1).getX(),s.get(x - 1).getY());
-      s.get(x).setDirection (s.get(x - 1).getDirection());
+      p.act();
     }
-    int d = s.get(0).getDirection ();
-    switch (d){
-      case Prop.UP :
-        if (s.get(0).getY() > 0){
-        s.get(0).setY (s.get(0).getY() - 1);
-      }
-        break;
-      case Prop.DOWN :
-        if (s.get(0).getY() < BOARD_LENGTH){
-        s.get(0).setY (s.get(0).getY() + 1);
-      }
-        break;
-      case Prop.RIGHT :
-        if (s.get(0).getX() < BOARD_LENGTH){
-        s.get(0).setX (s.get(0).getX() + 1);
-      }
-        break;
-      case Prop.LEFT :
-        if (s.get(0).getX() >0){
-        s.get(0).setX (s.get(0).getX() - 1);
-      }
-        break;
-    }
-    updated = false;
   }
+  
+  public void initWorld ()
+  {
+    s.putSelfInGrid (map, new Location (0,0));
+  }
+  
+  public Grid<Prop> getMap ()
+  {
+    return map;
+  }
+  
 }

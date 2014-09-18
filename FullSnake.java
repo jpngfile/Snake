@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.awt.event.*;
 
 //This contains multiple snake segments.
 //It acts for the snake segments which otherwise do nothing at all.
@@ -45,6 +46,7 @@ public class FullSnake extends Prop
   {
     return get(0).getDirection();
   }
+  
   public void act ()
   {
     for (int x = s.size() - 1;x > 0;x--)
@@ -71,11 +73,46 @@ public class FullSnake extends Prop
       }
         break;
       case Prop.LEFT :
-        if (l.getX() >0){
+        if (l.getX() > 0){
         s.get(0).setLoc (new Location (l.getX() - 1,l.getY()));
       }
+        break;  
+  }
+  }
+  
+  public void keyPressed (KeyEvent k)
+  {
+    int key = k.getKeyCode ();
+    int direction = GridField.getDirectionTowards (s.get(0).getLocation(),s.get(1).getLocation());
+    if (s.get(0).getLocation().equals (s.get(1).getLocation()))
+      direction = Integer.MAX_VALUE;
+    switch (key){
+      case KeyEvent.VK_UP :
+        //move up
+        if (direction != SnakeSegment.UP){
+        System.out.println (direction);
+        s.get(0).setDirection (SnakeSegment.UP);}
         break;
-    
+      case KeyEvent.VK_DOWN :
+        //move down
+        if (direction != SnakeSegment.DOWN){
+        System.out.println (direction);
+        s.get(0).setDirection (SnakeSegment.DOWN);}
+        break;
+      case KeyEvent.VK_RIGHT :
+        //move right
+        if (direction != SnakeSegment.RIGHT){
+        System.out.println (direction);
+        s.get(0).setDirection (SnakeSegment.RIGHT);}
+        break;
+      case KeyEvent.VK_LEFT :
+        //move left
+        if (direction != SnakeSegment.LEFT){
+        System.out.println (direction);
+        s.get(0).setDirection (SnakeSegment.LEFT);}
+        break;
+      case KeyEvent.VK_SPACE :
+        System.out.println (s.get(0).getLocation().toString());
   }
   }
 }

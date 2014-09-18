@@ -10,6 +10,7 @@ public class World
   {
     initWorld ();
     things.add (s);
+    toast = false;
   }
   
   /**
@@ -21,6 +22,13 @@ public class World
     for (Prop p : things)
     {
       p.act();
+    }
+    for (int x = 1; x < s.s.size (); x++){
+      SnakeSegment sn = s.s.get (x);
+      if (s.get(0).getLocation ().equals (sn.getLocation())){
+        toast = true;
+        System.out.println ("toast");
+      }      
     }
   }
   
