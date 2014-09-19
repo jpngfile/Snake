@@ -23,6 +23,16 @@ public class FullSnake extends Prop
     for (SnakeSegment sn : s){
       sn.putSelfInGrid (gr, loc);
     }
+    get (0).setDirection (Prop.RIGHT);
+  }
+  public void removeSelfFromGrid ()
+  {
+    if (grid != null)
+    {
+      for (SnakeSegment sn : s){
+        sn.removeSelfFromGrid ();
+      }
+    }
   }
   public int getLength ()
   {

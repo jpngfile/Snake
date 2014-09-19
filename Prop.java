@@ -25,6 +25,15 @@ public class Prop
     gr.put (loc, this);
   }
   
+  public void removeSelfFromGrid ()
+  {
+    if (grid != null)
+    {
+      grid.remove (location,this);
+    }
+    //location = null;
+    grid = null;
+  }
   public void setDirection (int dir)
   {
     this.direction = dir;

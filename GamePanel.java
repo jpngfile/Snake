@@ -24,6 +24,7 @@ public class GamePanel extends JPanel
   }
   
   
+  ///For some reasion this is getting faster and faster each iteration
   public void updateThis ()
   {
     System.out.println ("Updatred");
@@ -33,6 +34,7 @@ public class GamePanel extends JPanel
     //because java threads.
     //Thread.sleep() pauses the EDT halting painting
     //research to find out more about Threads
+    w.initWorld (this);
     new Thread () {
       public void run (){
 while (isRunning)
@@ -41,7 +43,7 @@ while (isRunning)
       timeBeforeMillis = System.currentTimeMillis();
       
       w.update ();
-      if (w.toast){
+      if (w.toast.booleanValue ()){
         break;
       }
       repaint ();
@@ -92,6 +94,10 @@ while (isRunning)
     }
   }
   
+  public String toString ()
+  {
+    return "Game Panel";
+  }
   //kind of sticky
   //Change so that it finds the direction of the previous segment and doesn't allow directions towards that.
   //I should really be moving this to snake. I'll do that next update

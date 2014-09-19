@@ -1,7 +1,9 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-public class MainFrame extends JFrame implements ActionListener
+import java.util.Observer;
+import java.util.Observable;
+public class MainFrame extends JFrame implements ActionListener,Observer
 {
   JPanel mainPanel;
   GamePanel gamePanel;
@@ -41,7 +43,14 @@ public class MainFrame extends JFrame implements ActionListener
     cl.show (mainPanel, panel);
     revalidate ();
   }
-  
+   public void update (Observable o,Object obj)
+   {
+     if (((Boolean)obj).booleanValue() == true)
+     {
+       show ("menu");
+     }
+     System.out.println ("Register");
+   }
   class KListen extends KeyAdapter
   {
     public void keyPressed (KeyEvent e)
