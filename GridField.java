@@ -16,8 +16,7 @@ public class GridField<E> implements Grid<E>
       for (int x = 0;x < rows;x++){
         for (int y = 0; y < cols;y++){
           occupants [x][y] = new ArrayList ();
-        }
-        
+        }        
       }
     }
   }
@@ -84,6 +83,21 @@ public class GridField<E> implements Grid<E>
     return locations;
   }
   
+  public ArrayList<Location> getEmptyLocations ()
+  {
+    ArrayList<Location> locations = new ArrayList<Location>();
+    for (int x = 0; x < getNumRows ();x++)
+    {
+     for (int y = 0; y < getNumCols();y++)
+     {
+       if (occupants [x][y].isEmpty()){
+         locations.add (new Location (x,y));
+       }
+     }
+    }
+    return locations;
+  }
+  
   public static int FULL_CIRCLE = 360;
   public static int HALF_CIRCLE = 180;
   public static int QUARTER_CIRCLE = 90;
@@ -135,6 +149,24 @@ public class GridField<E> implements Grid<E>
     return neighbours;
   }
   
+  //broken :(
+  public void removeAll ()
+  {
+    for (int x = 0; x < occupants.length;x++)
+    {
+     for (int y = 0; y < occupants[0].length;y++)
+     {
+       if (!occupants [x][y].isEmpty())
+       {
+         for (Object j : occupants [x][y])
+         {
+           ((Prop)j).removeSelfFromGrid ();
+         }
+       }
+       occupants[x][y].clear();
+     }
+    }
+  }
   public static int NORTH = 0;
   public static int NORTHEAST = 45;
   public static int EAST = 90;

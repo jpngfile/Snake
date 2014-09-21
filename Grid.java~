@@ -16,9 +16,6 @@
  * @author APCS Development Committee
  * @author Cay Horstmann
  */
-
-package info.gridworld.grid;
-
 import java.util.ArrayList;
 
 /**
@@ -126,5 +123,5 @@ public interface Grid<E>
      * @return returns an array list of the objects in the occupied locations
      * adjacent to <code>loc</code> in this grid
      */
-    ArrayList<E> getNeighbors(Location loc);
+    ArrayList<ArrayList<E>> getNeighbours(Location loc);
 }

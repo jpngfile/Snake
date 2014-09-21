@@ -48,7 +48,7 @@ public class Prop
   {
    if (grid == null)
      throw new IllegalStateException ("Not in a grid");
-   if (grid.isValid (loc)){    
+   if (grid.isValid (loc)){
      grid.remove (location, this);
      grid.put (loc, this);
        location = loc;

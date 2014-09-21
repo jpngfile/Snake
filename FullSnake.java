@@ -38,13 +38,25 @@ public class FullSnake extends Prop
   {
     return length;
   }
+  
+  //This thing is messing up everything
   public void addSegment (int num)
   {
     for (int x = 0; x < num;x++)
     {
       SnakeSegment sn = new SnakeSegment ();
       s.add (sn);
-      sn.putSelfInGrid (getGrid (),get(s.size() - 1).getLocation());
+      sn.putSelfInGrid (grid,s.get (s.size() - 2).getLocation());
+    }
+  }
+  
+  public void truncate ()
+  {
+    if (s.size () > 5)
+    {
+      for (int x = 0; x < s.size() -  5;x++){
+      s.remove (s.size() - 1);
+      }
     }
   }
   public SnakeSegment get (int index)
@@ -100,25 +112,25 @@ public class FullSnake extends Prop
       case KeyEvent.VK_UP :
         //move up
         if (direction != SnakeSegment.UP){
-        System.out.println (direction);
+        //System.out.println (direction);
         s.get(0).setDirection (SnakeSegment.UP);}
         break;
       case KeyEvent.VK_DOWN :
         //move down
         if (direction != SnakeSegment.DOWN){
-        System.out.println (direction);
+        //System.out.println (direction);
         s.get(0).setDirection (SnakeSegment.DOWN);}
         break;
       case KeyEvent.VK_RIGHT :
         //move right
         if (direction != SnakeSegment.RIGHT){
-        System.out.println (direction);
+        //System.out.println (direction);
         s.get(0).setDirection (SnakeSegment.RIGHT);}
         break;
       case KeyEvent.VK_LEFT :
         //move left
         if (direction != SnakeSegment.LEFT){
-        System.out.println (direction);
+        //System.out.println (direction);
         s.get(0).setDirection (SnakeSegment.LEFT);}
         break;
       case KeyEvent.VK_SPACE :

@@ -82,6 +82,12 @@ public interface Grid<E>
     ArrayList<Location> getOccupiedLocations();
 
     /**
+     * Gets the locations in this grid that do not contain objects.
+     * @return an array list of all unoccupied locations in this grid
+     */
+    ArrayList<Location> getEmptyLocations();
+    
+    /**
      * Gets the valid locations adjacent to a given location in all eight
      * compass directions (north, northeast, east, southeast, south, southwest,
      * west, and northwest). <br />

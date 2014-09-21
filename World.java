@@ -7,6 +7,7 @@ public class World extends Observable
   GridField<Prop> map = new GridField<Prop>(19,19);
   ArrayList<Prop> things = new ArrayList<Prop>();
   FullSnake s = new FullSnake (5);
+  Food f = new Food ();
   public Boolean toast;
   public World ()
   {
@@ -27,12 +28,20 @@ public class World extends Observable
       SnakeSegment sn = s.s.get (x);
       if (s.get(0).getLocation ().equals (sn.getLocation())){
         toast = new Boolean (true);
+        s.truncate();
         s.removeSelfFromGrid ();
+        f.removeSelfFromGrid ();
         System.out.println ("toast");
         setChanged ();
         notifyObservers (toast);
         System.out.println ("notify");
+        
       }      
+    }
+    if (s.get(0).getLocation().equals (f.getLocation()))
+    {
+      //s.addSegment (1);
+      f.moveToRandomLocation();
     }
   }
   
@@ -41,7 +50,9 @@ public class World extends Observable
     things.clear();
     toast = new Boolean (false);
     s.putSelfInGrid (map, new Location (0,0));
+    f.putSelfInGrid (map, new Location ((int)(Math.random () *18) + 1,(int)( Math.random() * 18)));
     things.add (s);
+    things.add (f);                    
     //JPanel, mainPanel, JLayeredPane, JRootPane, JFrame
     addObserver ((Observer)(p.getParent().getParent().getParent().getParent().getParent()));
   }
