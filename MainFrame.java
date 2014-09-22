@@ -49,7 +49,6 @@ public class MainFrame extends JFrame implements ActionListener,Observer
      {
        show ("menu");
      }
-     System.out.println ("Register");
    }
   class KListen extends KeyAdapter
   {

@@ -68,4 +68,9 @@ public class Prop
   {
     
   }
+  
+  public String toString ()
+  {
+    return "prop";
+  }
 }

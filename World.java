@@ -33,20 +33,20 @@ public class World extends Observable
         f.removeSelfFromGrid ();
         System.out.println ("toast");
         setChanged ();
-        notifyObservers (toast);
-        System.out.println ("notify");
-        
+        notifyObservers (toast);       
       }      
     }
     if (s.get(0).getLocation().equals (f.getLocation()))
     {
-      //s.addSegment (1);
+      s.addSegment (1);
       f.moveToRandomLocation();
     }
   }
   
   public void initWorld (JPanel p)
   {
+    System.out.println ("init world");
+    map.printOccupants();
     things.clear();
     toast = new Boolean (false);
     s.putSelfInGrid (map, new Location (0,0));

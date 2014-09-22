@@ -6,4 +6,8 @@ public class SnakeSegment extends Prop
   {
     super ();
   }
+  public String toString ()
+  {
+   return "snake Segment"; 
+  }
 }

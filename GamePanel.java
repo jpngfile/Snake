@@ -11,7 +11,7 @@ public class GamePanel extends JPanel
   
   boolean isRunning = false;
   boolean updated = false;
-  
+  boolean pause = false;
   //Create a grid class of locations.
   //This will be a map for all future endeavours
   //Also, create a standard object to put in the Grid
@@ -23,58 +23,58 @@ public class GamePanel extends JPanel
     setVisible (true);
   }
   
-  
+  int counter = 0;
   ///For some reasion this is getting faster and faster each iteration
   public void updateThis ()
   {
-    System.out.println ("Updatred");
     isRunning = true;
-    int counter = 0;
+    
     //Why a new Thread?
     //because java threads.
     //Thread.sleep() pauses the EDT halting painting
     //research to find out more about Threads
-    w.initWorld (this);
+      w.initWorld (this);
     new Thread () {
       public void run (){
-while (isRunning)
-{
-      long timeBeforeMillis,timePassedMillis,timeLeftMillis;
-      timeBeforeMillis = System.currentTimeMillis();
-      
-      w.update ();
-      if (w.toast.booleanValue ()){
-        break;
-      }
-      repaint ();
-      updated = false;
-      //System.out.println (s.getX() + ", " + s.getY());
-      
-      timePassedMillis = System.currentTimeMillis() - timeBeforeMillis;
-      timeLeftMillis = 1000L / UPDATE_RATE - timePassedMillis;
-      if (timeLeftMillis < 50)
-        timeLeftMillis = 50;
-      //counter += (int)timeLeftMillis;
-      try
-      {
-        Thread.sleep (timeLeftMillis);
-      }
-      catch (InterruptedException e)
-      {
-      }
-}
-
+        while (isRunning)
+        {
+          long timeBeforeMillis,timePassedMillis,timeLeftMillis;
+          timeBeforeMillis = System.currentTimeMillis();
+          
+          if (!pause)
+          w.update ();
+          if (w.toast.booleanValue ()){
+            break;
+          }
+          repaint ();
+          updated = false;
+          //System.out.println (s.getX() + ", " + s.getY());
+          
+          timePassedMillis = System.currentTimeMillis() - timeBeforeMillis;
+          timeLeftMillis = 1000L / UPDATE_RATE - timePassedMillis;
+          if (timeLeftMillis < 50)
+            timeLeftMillis = 50;
+          //counter += (int)timeLeftMillis;
+          try
+          {
+            Thread.sleep (timeLeftMillis);
+          }
+          catch (InterruptedException e)
+          {
+          }
+        }
+        
 //This part runs once the snake is dead.
 //reset the game here
 //return to main menu
-}
+      }
     }.start();
     //end this.
-
-      //must find a way to return to the main menu
+    counter++;
+    //must find a way to return to the main menu
   }
   
-
+  
   //invert the grid so that it is easier to use
   //Will have to change to draw different kinds of shapes
   protected void paintComponent (Graphics g)
@@ -105,9 +105,13 @@ while (isRunning)
   {
     if (!updated)
     {
-    w.s.keyPressed (k);
-    updated = true; 
-    }       
+      w.s.keyPressed (k);
+      updated = true; 
+    }
+    if (k.getKeyCode () == KeyEvent.VK_P)
+    {
+      pause = !pause;
+    }
   }
   
 }

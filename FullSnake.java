@@ -52,12 +52,18 @@ public class FullSnake extends Prop
   
   public void truncate ()
   {
+    System.out.println (s.size() - 5);
+    int y = s.size() - 5;
+    int counter = 0;
     if (s.size () > 5)
     {
-      for (int x = 0; x < s.size() -  5;x++){
-      s.remove (s.size() - 1);
+      for (int x = 0; x < y;x++){
+      s.remove (5);
+      counter++;
       }
+      System.out.println (counter);
     }
+    
   }
   public SnakeSegment get (int index)
   {

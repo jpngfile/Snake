@@ -167,6 +167,26 @@ public class GridField<E> implements Grid<E>
      }
     }
   }
+  
+  public void printOccupants ()
+  {
+    for (int x = 0; x < getNumRows(); x++)
+    {
+     for (int y = 0; y < getNumCols(); y++)
+     {
+       if (!occupants[x][y].isEmpty()){
+        ArrayList<E> list = (ArrayList<E>)occupants[x][y];
+        System.out.println ("(" + x + ", " + y + ")");
+         for ( int z = 0; z < list.size();z++){
+           E obj = list.get(z);
+          System.out.println (obj.toString());
+          //band-aid solution
+          remove (new Location (x,y),obj);
+         }
+       }
+     }
+    }
+  }
   public static int NORTH = 0;
   public static int NORTHEAST = 45;
   public static int EAST = 90;
