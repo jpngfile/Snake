@@ -29,8 +29,9 @@ public class FullSnake extends Prop
   {
     if (grid != null)
     {
-      for (SnakeSegment sn : s){
-        sn.removeSelfFromGrid ();
+      for (int x = 0;x < s.size();x++){
+        
+        s.get(0).removeSelfFromGrid ();
       }
     }
   }
@@ -40,6 +41,7 @@ public class FullSnake extends Prop
   }
   
   //This thing is messing up everything
+  //it leaves traces of snake behind
   public void addSegment (int num)
   {
     for (int x = 0; x < num;x++)
@@ -55,10 +57,9 @@ public class FullSnake extends Prop
     System.out.println (s.size() - 5);
     int y = s.size() - 5;
     int counter = 0;
-    if (s.size () > 5)
-    {
+    if (s.size () > 5)    {
       for (int x = 0; x < y;x++){
-      s.remove (5);
+      s.remove (5).removeSelfFromGrid ();
       counter++;
       }
       System.out.println (counter);

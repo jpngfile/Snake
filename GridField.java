@@ -170,6 +170,7 @@ public class GridField<E> implements Grid<E>
   
   public void printOccupants ()
   {
+    int counter = 0;
     for (int x = 0; x < getNumRows(); x++)
     {
      for (int y = 0; y < getNumCols(); y++)
@@ -181,11 +182,13 @@ public class GridField<E> implements Grid<E>
            E obj = list.get(z);
           System.out.println (obj.toString());
           //band-aid solution
+          counter++;
           remove (new Location (x,y),obj);
          }
        }
      }
     }
+    System.out.println ("leftovers: " + counter);
   }
   public static int NORTH = 0;
   public static int NORTHEAST = 45;
