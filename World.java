@@ -24,23 +24,26 @@ public class World extends Observable
     {
       p.act();
     }
-    for (int x = 1; x < s.s.size (); x++){
-      SnakeSegment sn = s.s.get (x);
-      if (s.get(0).getLocation ().equals (sn.getLocation())){
-        toast = new Boolean (true);
-        s.truncate();
-        s.removeSelfFromGrid ();
-        f.removeSelfFromGrid ();
-        System.out.println ("toast");
-        setChanged ();
-        notifyObservers (toast);       
-      }      
-    }
     if (s.get(0).getLocation().equals (f.getLocation()))
     {
       s.addSegment (1);
       f.moveToRandomLocation();
     }
+    int y = s.s.size();
+    for (int x = 1; x < y; x++){
+      SnakeSegment sn = s.s.get (x);
+      if (s.get(0).getLocation ().equals (sn.getLocation())){
+        toast = new Boolean (true);        
+        s.removeSelfFromGrid ();
+        s.truncate();
+        f.removeSelfFromGrid ();
+        System.out.println ("toast");
+        setChanged ();
+        notifyObservers (toast);
+        break;
+      }      
+    }
+    
   }
   
   public void initWorld (JPanel p)

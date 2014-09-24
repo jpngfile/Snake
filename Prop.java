@@ -27,10 +27,11 @@ public class Prop
   
   public void removeSelfFromGrid ()
   {
-    if (grid != null)
+    if (grid == null)
     {
-      grid.remove (location,this);
+      throw new IllegalStateException ("Not in grid");
     }
+    grid.remove (location,this);
     //location = null;
     grid = null;
   }
