@@ -19,6 +19,7 @@ public class MainFrame extends JFrame implements ActionListener,Observer
     mainPanel.setFocusable (true);
     mainPanel.addKeyListener (new KListen());
     add (mainPanel);
+    setLocation (400,100);
     setVisible (true);
     setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
   }

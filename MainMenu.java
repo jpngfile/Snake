@@ -1,17 +1,21 @@
 import java.awt.*;
 import javax.swing.*;
-  import java.awt.event.*;
+import java.awt.event.*;
+import javax.imageio.*;
+import java.awt.image.*;
+import java.io.*;
 public class MainMenu extends JPanel implements ActionListener
 {
   JFrame parent;
+  BufferedImage img;
   public MainMenu (JFrame parent)
   {
     this.parent = parent;
     SpringLayout layout = new SpringLayout ();
     setSize (parent.getSize());
     setLayout (layout);
-    ImageIcon playIcon = new ImageIcon ("playicon.png");
-    ImageIcon quitIcon = new ImageIcon ("quiticon.png");
+    ImageIcon playIcon = new ImageIcon ("playRolloverIcon.png");
+    ImageIcon quitIcon = new ImageIcon ("quitRolloverIcon.png");
     Image img1 = playIcon.getImage();
     img1 = img1.getScaledInstance (75,75,Image.SCALE_SMOOTH);
     Image img2 = quitIcon.getImage();
@@ -32,9 +36,9 @@ public class MainMenu extends JPanel implements ActionListener
     quitButton.setActionCommand ("quit");
     playButton.addActionListener (this);
     quitButton.addActionListener (this);
-        
-    ImageIcon playRolloverIcon = new ImageIcon ("playRolloverIcon.png");
-    ImageIcon quitRolloverIcon = new ImageIcon ("quitRolloverIcon.png");
+    
+    ImageIcon playRolloverIcon = new ImageIcon ("playIcon2.png");
+    ImageIcon quitRolloverIcon = new ImageIcon ("quitIcon2.png");
     Image img3 = playRolloverIcon.getImage();
     img3 = img3.getScaledInstance (80,80,Image.SCALE_SMOOTH);
     Image img4 = quitRolloverIcon.getImage();
@@ -44,25 +48,42 @@ public class MainMenu extends JPanel implements ActionListener
     
     playButton.setRolloverIcon (playRolloverIcon);
     quitButton.setRolloverIcon (quitRolloverIcon);
-    playButton.setRolloverSelectedIcon (playRolloverIcon);
-    quitButton.setRolloverSelectedIcon (quitRolloverIcon);
+//    playButton.setRolloverSelectedIcon (playRolloverIcon);
+//    quitButton.setRolloverSelectedIcon (quitRolloverIcon);
     playButton.setRolloverEnabled (true);
     quitButton.setRolloverEnabled (true);
-
+    
     playButton.setPressedIcon (playRolloverIcon);
     quitButton.setPressedIcon (quitRolloverIcon);
-    
+    playButton.setFocusPainted (false);
+    quitButton.setFocusPainted (false);
+    //The buttons actually look nicer with a border
+    //This gets rid of the annoying one though when pressing the button
+    playButton.setBorder (null);
+    quitButton.setBorder (null);
     //Put the buttons on top of each other
-    layout.putConstraint  (SpringLayout.NORTH,playButton,100,SpringLayout.NORTH,this);
-    layout.putConstraint  (SpringLayout.NORTH,quitButton,200,SpringLayout.NORTH,this);
+    layout.putConstraint  (SpringLayout.NORTH,playButton,125,SpringLayout.NORTH,this);
+    layout.putConstraint  (SpringLayout.NORTH,quitButton,225,SpringLayout.NORTH,this);
     
     //center the buttons
     layout.putConstraint (SpringLayout.WEST,playButton,(int)((this.getSize().getWidth()/2)-(playButton.getSize().getWidth())/2),SpringLayout.WEST,this);
     layout.putConstraint (SpringLayout.WEST,quitButton,(int)((this.getSize().getWidth()/2)-(quitButton.getSize().getWidth())/2),SpringLayout.WEST,this);
     add (playButton);
     add (quitButton);
+    try
+    {
+    img = ImageIO.read (getClass().getResourceAsStream("menuBackground.png"));
+    }
+    catch (IOException e)
+    {
+    }
   }
   
+  protected void paintComponent (Graphics g)
+  {
+    super.paintComponent (g);
+    g.drawImage (img,0,0,null);
+  }
   public void actionPerformed (ActionEvent ae)
   {
     ((ActionListener)parent).actionPerformed (ae);
