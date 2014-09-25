@@ -1,15 +1,17 @@
 import java.util.ArrayList;
-
-public class World
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.JPanel;
+public class World extends Observable
 {
   GridField<Prop> map = new GridField<Prop>(19,19);
   ArrayList<Prop> things = new ArrayList<Prop>();
   FullSnake s = new FullSnake (5);
-  public boolean toast;
+  Food f = new Food ();
+  public Boolean toast;
   public World ()
   {
-    initWorld ();
-    things.add (s);
+    //add error things    
   }
   
   /**
@@ -22,11 +24,40 @@ public class World
     {
       p.act();
     }
+    if (s.get(0).getLocation().equals (f.getLocation()))
+    {
+      s.addSegment (1);
+      f.moveToRandomLocation();
+    }
+    int y = s.s.size();
+    for (int x = 1; x < y; x++){
+      SnakeSegment sn = s.s.get (x);
+      if (s.get(0).getLocation ().equals (sn.getLocation())){
+        toast = new Boolean (true);        
+        s.removeSelfFromGrid ();
+        s.truncate();
+        f.removeSelfFromGrid ();
+        System.out.println ("toast");
+        setChanged ();
+        notifyObservers (toast);
+        break;
+      }      
+    }
+    
   }
   
-  public void initWorld ()
+  public void initWorld (JPanel p)
   {
+    System.out.println ("init world");
+    map.printOccupants();
+    things.clear();
+    toast = new Boolean (false);
     s.putSelfInGrid (map, new Location (0,0));
+    f.putSelfInGrid (map, new Location ((int)(Math.random () *18) + 1,(int)( Math.random() * 18)));
+    things.add (s);
+    things.add (f);                    
+    //JPanel, mainPanel, JLayeredPane, JRootPane, JFrame
+    addObserver ((Observer)(p.getParent().getParent().getParent().getParent().getParent()));
   }
   
   public Grid<Prop> getMap ()

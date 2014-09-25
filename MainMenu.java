@@ -20,13 +20,38 @@ public class MainMenu extends JPanel implements ActionListener
     quitIcon = new ImageIcon (img2);
     JButton playButton = new JButton (playIcon);
     JButton quitButton = new JButton (quitIcon);
-    playButton.setSize (playButton.getPreferredSize());
-    quitButton.setSize (quitButton.getPreferredSize());
+    playButton.setMargin (new Insets (0,0,0,0));
+    quitButton.setMargin (new Insets (0,0,0,0));
+    playButton.setBorderPainted (false);
+    quitButton.setBorderPainted (false);
+    playButton.setBackground (Color.BLACK);
+    quitButton.setBackground (Color.BLACK);
+    playButton.setSize (new Dimension (75,75));//(playButton.getPreferredSize());
+    quitButton.setSize (new Dimension (75,75));//(quitButton.getPreferredSize());
     playButton.setActionCommand ("play");
     quitButton.setActionCommand ("quit");
     playButton.addActionListener (this);
     quitButton.addActionListener (this);
+        
+    ImageIcon playRolloverIcon = new ImageIcon ("playRolloverIcon.png");
+    ImageIcon quitRolloverIcon = new ImageIcon ("quitRolloverIcon.png");
+    Image img3 = playRolloverIcon.getImage();
+    img3 = img3.getScaledInstance (80,80,Image.SCALE_SMOOTH);
+    Image img4 = quitRolloverIcon.getImage();
+    img4 = img4.getScaledInstance (75,75,Image.SCALE_SMOOTH);
+    playRolloverIcon = new ImageIcon (img3);
+    quitRolloverIcon = new ImageIcon (img4);
+    
+    playButton.setRolloverIcon (playRolloverIcon);
+    quitButton.setRolloverIcon (quitRolloverIcon);
+    playButton.setRolloverSelectedIcon (playRolloverIcon);
+    quitButton.setRolloverSelectedIcon (quitRolloverIcon);
+    playButton.setRolloverEnabled (true);
+    quitButton.setRolloverEnabled (true);
 
+    playButton.setPressedIcon (playRolloverIcon);
+    quitButton.setPressedIcon (quitRolloverIcon);
+    
     //Put the buttons on top of each other
     layout.putConstraint  (SpringLayout.NORTH,playButton,100,SpringLayout.NORTH,this);
     layout.putConstraint  (SpringLayout.NORTH,quitButton,200,SpringLayout.NORTH,this);

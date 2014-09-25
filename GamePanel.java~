@@ -4,13 +4,14 @@ import java.awt.event.*;
 import java.util.ArrayList;
 public class GamePanel extends JPanel
 {
+  //discontinued
   final int BOARD_LENGTH = 18;
   final long UPDATE_RATE = 10;
   World w = new World();
   
   boolean isRunning = false;
   boolean updated = false;
-  
+  boolean pause = false;
   //Create a grid class of locations.
   //This will be a map for all future endeavours
   //Also, create a standard object to put in the Grid
@@ -22,46 +23,60 @@ public class GamePanel extends JPanel
     setVisible (true);
   }
   
-  
+  int counter = 0;
+  ///For some reasion this is getting faster and faster each iteration
   public void updateThis ()
   {
-    System.out.println ("Updatred");
     isRunning = true;
-    int counter = 0;
+    
     //Why a new Thread?
     //because java threads.
     //Thread.sleep() pauses the EDT halting painting
     //research to find out more about Threads
+      w.initWorld (this);
     new Thread () {
       public void run (){
-while (isRunning)
-{
-      long timeBeforeMillis,timePassedMillis,timeLeftMillis;
-      timeBeforeMillis = System.currentTimeMillis();
-      w.update ();
-      repaint ();
-      updated = false;
-      //System.out.println (s.getX() + ", " + s.getY());
-      
-      timePassedMillis = System.currentTimeMillis() - timeBeforeMillis;
-      timeLeftMillis = 1000L / UPDATE_RATE - timePassedMillis;
-      if (timeLeftMillis < 50)
-        timeLeftMillis = 50;
-      //counter += (int)timeLeftMillis;
-      try
-      {
-        Thread.sleep (timeLeftMillis);
+        while (isRunning)
+        {
+          long timeBeforeMillis,timePassedMillis,timeLeftMillis;
+          timeBeforeMillis = System.currentTimeMillis();
+          
+          if (!pause)
+          w.update ();
+          if (w.toast.booleanValue ()){
+            break;
+          }
+          repaint ();
+          updated = false;
+          //System.out.println (s.getX() + ", " + s.getY());
+          
+          timePassedMillis = System.currentTimeMillis() - timeBeforeMillis;
+          timeLeftMillis = 1000L / UPDATE_RATE - timePassedMillis;
+          if (timeLeftMillis < 50)
+            timeLeftMillis = 50;
+          //counter += (int)timeLeftMillis;
+          try
+          {
+            Thread.sleep (timeLeftMillis);
+          }
+          catch (InterruptedException e)
+          {
+          }
+        }
+        
+//This part runs once the snake is dead.
+//reset the game here
+//return to main menu
       }
-      catch (InterruptedException e)
-      {
-      }
-}
-}
     }.start();
+    //end this.
+    counter++;
+    //must find a way to return to the main menu
   }
   
-
+  
   //invert the grid so that it is easier to use
+  //Will have to change to draw different kinds of shapes
   protected void paintComponent (Graphics g)
   {
     super.paintComponent (g);
@@ -79,43 +94,24 @@ while (isRunning)
     }
   }
   
+  public String toString ()
+  {
+    return "Game Panel";
+  }
   //kind of sticky
   //Change so that it finds the direction of the previous segment and doesn't allow directions towards that.
+  //I should really be moving this to snake. I'll do that next update
   public void keyPressed (KeyEvent k)
   {
     if (!updated)
     {
-    int key = k.getKeyCode ();
-    int direction = GridField.getDirectionTowards (w.s.get(0).getLocation(),w.s.get(1).getLocation());
-    if (w.s.get(0).getLocation().equals (w.s.get(1).getLocation()))
-      direction = Integer.MAX_VALUE;
-    switch (key){
-      case KeyEvent.VK_UP :
-        //move up
-        if (direction != SnakeSegment.DOWN)
-        w.s.get(0).setDirection (SnakeSegment.UP);
-        break;
-      case KeyEvent.VK_DOWN :
-        //move down
-        if (direction != SnakeSegment.UP)
-        w.s.get(0).setDirection (SnakeSegment.DOWN);
-        break;
-      case KeyEvent.VK_RIGHT :
-        //move right
-        if (direction != SnakeSegment.LEFT)
-        w.s.get(0).setDirection (SnakeSegment.RIGHT);
-        break;
-      case KeyEvent.VK_LEFT :
-        //move left
-        if (direction != SnakeSegment.RIGHT)
-        w.s.get(0).setDirection (SnakeSegment.LEFT);
-        break;
-      case KeyEvent.VK_SPACE :
-        System.out.println (w.s.get(0).getLocation().toString());
+      w.s.keyPressed (k);
+      updated = true; 
     }
-    updated = true;
+    if (k.getKeyCode () == KeyEvent.VK_P)
+    {
+      pause = !pause;
     }
-    
   }
   
 }

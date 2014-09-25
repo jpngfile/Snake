@@ -16,8 +16,7 @@ public class GridField<E> implements Grid<E>
       for (int x = 0;x < rows;x++){
         for (int y = 0; y < cols;y++){
           occupants [x][y] = new ArrayList ();
-        }
-        
+        }        
       }
     }
   }
@@ -84,6 +83,21 @@ public class GridField<E> implements Grid<E>
     return locations;
   }
   
+  public ArrayList<Location> getEmptyLocations ()
+  {
+    ArrayList<Location> locations = new ArrayList<Location>();
+    for (int x = 0; x < getNumRows ();x++)
+    {
+     for (int y = 0; y < getNumCols();y++)
+     {
+       if (occupants [x][y].isEmpty()){
+         locations.add (new Location (x,y));
+       }
+     }
+    }
+    return locations;
+  }
+  
   public static int FULL_CIRCLE = 360;
   public static int HALF_CIRCLE = 180;
   public static int QUARTER_CIRCLE = 90;
@@ -135,6 +149,47 @@ public class GridField<E> implements Grid<E>
     return neighbours;
   }
   
+  //broken :(
+  public void removeAll ()
+  {
+    for (int x = 0; x < occupants.length;x++)
+    {
+     for (int y = 0; y < occupants[0].length;y++)
+     {
+       if (!occupants [x][y].isEmpty())
+       {
+         for (Object j : occupants [x][y])
+         {
+           ((Prop)j).removeSelfFromGrid ();
+         }
+       }
+       occupants[x][y].clear();
+     }
+    }
+  }
+  
+  public void printOccupants ()
+  {
+    int counter = 0;
+    for (int x = 0; x < getNumRows(); x++)
+    {
+     for (int y = 0; y < getNumCols(); y++)
+     {
+       if (!occupants[x][y].isEmpty()){
+        ArrayList<E> list = (ArrayList<E>)occupants[x][y];
+        System.out.println ("(" + x + ", " + y + ")");
+         for ( int z = 0; z < list.size();z++){
+           E obj = list.get(z);
+          System.out.println (obj.toString());
+          //band-aid solution
+          counter++;
+          remove (new Location (x,y),obj);
+         }
+       }
+     }
+    }
+    System.out.println ("leftovers: " + counter);
+  }
   public static int NORTH = 0;
   public static int NORTHEAST = 45;
   public static int EAST = 90;
@@ -171,6 +226,8 @@ public class GridField<E> implements Grid<E>
   //check corner cases
   public static int getDirectionTowards (Location loc1, Location loc2)
   {
+    if (loc1.equals (loc2))
+      return 0;
     int deltaX = loc2.getX() - loc1.getX();
     int deltaY = loc2.getY() - loc1.getY();
     double angle;
@@ -186,10 +243,15 @@ public class GridField<E> implements Grid<E>
     }
     else{
       if (deltaY == 0)
-        angle = 90;
+      {
+        if (deltaX < 0)
+          angle = 270;
+        else
+        angle = 90;        
+      }
       else
       angle = Math.toDegrees (Math.atan (deltaX/deltaY));
-      if (loc2.getX() < loc1.getX()){
+      if (loc2.getX() <= loc1.getX() && loc2.getY() < loc1.getY() ){
         angle += 180;
       }
     }

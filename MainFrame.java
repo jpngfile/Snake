@@ -29,10 +29,8 @@ public class MainFrame extends JFrame implements ActionListener,Observer
     if (a.equals ("play")){
       show ("game");
         gamePanel.updateThis ();
-        System.out.println ("WHY?");
     }
     else if (a.equals ("quit")){
-      System.out.println ("Exit");
       System.exit (0);
     }
   }

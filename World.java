@@ -9,6 +9,7 @@ public class World extends Observable
   FullSnake s = new FullSnake (5);
   Food f = new Food ();
   public Boolean toast;
+  public int score;
   public World ()
   {
     //add error things    
@@ -28,6 +29,7 @@ public class World extends Observable
     {
       s.addSegment (1);
       f.moveToRandomLocation();
+      score++;
     }
     int y = s.s.size();
     for (int x = 1; x < y; x++){
@@ -37,7 +39,6 @@ public class World extends Observable
         s.removeSelfFromGrid ();
         s.truncate();
         f.removeSelfFromGrid ();
-        System.out.println ("toast");
         setChanged ();
         notifyObservers (toast);
         break;
@@ -48,9 +49,9 @@ public class World extends Observable
   
   public void initWorld (JPanel p)
   {
-    System.out.println ("init world");
-    map.printOccupants();
+    //map.printOccupants();
     things.clear();
+    score = 0;
     toast = new Boolean (false);
     s.putSelfInGrid (map, new Location (0,0));
     f.putSelfInGrid (map, new Location ((int)(Math.random () *18) + 1,(int)( Math.random() * 18)));

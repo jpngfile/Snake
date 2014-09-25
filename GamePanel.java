@@ -83,6 +83,7 @@ public class GamePanel extends JPanel
     g.setColor (Color.BLACK);
     g.fillRect (0,0,500,500);
     g.setColor (Color.WHITE);
+    g.drawString (Integer.toString (w.score), 10,20);
 //    for (int x = 0; x < s.size();x++){
 //    g.drawOval (25*s.get(x).getX(),25*s.get(x).getY(),25,25);
 //    }

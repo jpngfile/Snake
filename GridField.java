@@ -183,12 +183,11 @@ public class GridField<E> implements Grid<E>
           System.out.println (obj.toString());
           //band-aid solution
           counter++;
-          remove (new Location (x,y),obj);
+          //remove (new Location (x,y),obj);
          }
        }
      }
     }
-    System.out.println ("leftovers: " + counter);
   }
   public static int NORTH = 0;
   public static int NORTHEAST = 45;

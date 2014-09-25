@@ -31,16 +31,14 @@ public class FullSnake extends Prop
     int counter = 0;
     if (grid != null)
     {
-      int y = s.size();System.out.println ("# of segments: " + y);
+      int y = s.size();
       for (int x = 0;x < y;x++){
-        System.out.println ("segment #: " +counter);
         s.get(x).removeSelfFromGrid ();
         //s.remove (0);
         counter++;
         
       }
     }
-    System.out.println ("segments removed: " + counter);
   }
   
   public int getLength ()
@@ -58,14 +56,13 @@ public class FullSnake extends Prop
       SnakeSegment sn = new SnakeSegment ();
 
       sn.putSelfInGrid (grid,s.get (s.size() - 2).getLocation());
-      s.add (sn);System.out.println ("new size : " + s.size());
+      s.add (sn);
       length++;
     }
   }
   
   public void truncate ()
   {
-    System.out.println (s.size() - 5);
     int y = s.size() - 5;
     int counter = 0;
     if (s.size () > 5)    {
@@ -74,7 +71,6 @@ public class FullSnake extends Prop
       counter++;
       }
       length = 5;
-      System.out.println (counter);
     }
     
   }

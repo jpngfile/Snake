@@ -1,9 +1,12 @@
 import java.awt.*;
 import javax.swing.*;
-public class MainMenu extends JPanel
+  import java.awt.event.*;
+public class MainMenu extends JPanel implements ActionListener
 {
+  JFrame parent;
   public MainMenu (JFrame parent)
   {
+    this.parent = parent;
     SpringLayout layout = new SpringLayout ();
     setSize (parent.getSize());
     setLayout (layout);
@@ -19,8 +22,11 @@ public class MainMenu extends JPanel
     JButton quitButton = new JButton (quitIcon);
     playButton.setSize (playButton.getPreferredSize());
     quitButton.setSize (quitButton.getPreferredSize());
-    
-    System.out.println (playButton.getSize());
+    playButton.setActionCommand ("play");
+    quitButton.setActionCommand ("quit");
+    playButton.addActionListener (this);
+    quitButton.addActionListener (this);
+
     //Put the buttons on top of each other
     layout.putConstraint  (SpringLayout.NORTH,playButton,100,SpringLayout.NORTH,this);
     layout.putConstraint  (SpringLayout.NORTH,quitButton,200,SpringLayout.NORTH,this);
@@ -30,5 +36,10 @@ public class MainMenu extends JPanel
     layout.putConstraint (SpringLayout.WEST,quitButton,(int)((this.getSize().getWidth()/2)-(quitButton.getSize().getWidth())/2),SpringLayout.WEST,this);
     add (playButton);
     add (quitButton);
+  }
+  
+  public void actionPerformed (ActionEvent ae)
+  {
+    ((ActionListener)parent).actionPerformed (ae);
   }
 }
