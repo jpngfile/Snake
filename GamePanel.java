@@ -85,6 +85,7 @@ public class GamePanel extends JPanel
   
   //invert the grid so that it is easier to use
   //Will have to change to draw different kinds of shapes
+  //Is Toolkit.getDefaultTookit().sync() useful here?
   protected void paintComponent (Graphics g)
   {
     super.paintComponent (g);
@@ -95,11 +96,18 @@ public class GamePanel extends JPanel
 //    for (int x = 0; x < s.size();x++){
 //    g.drawOval (25*s.get(x).getX(),25*s.get(x).getY(),25,25);
 //    }
+    //why doesn't this work?
+    Grid gr = w.getMap();
     for (Location l : w.getMap().getOccupiedLocations())
     {
       Location loc = (new Location (l.getX(),w.map.getNumCols () -  l.getY()));
-      
+      Prop p = w.getMap().get(l).get(0);
+      if (p.getImage() == null){
       g.drawOval (25*loc.getX(),25*loc.getY() - 25,25,25);
+      }
+      else{
+       g.drawImage (p.getImage(),25*loc.getX(),25*loc.getY() - 25,null); 
+      }
     }
   }
   

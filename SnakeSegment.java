@@ -12,6 +12,8 @@ public class SnakeSegment extends Prop
   public SnakeSegment ()
   {
     super ();
+    int x = (int)(Math.random()*10) + 1;
+    setImage ("whiteScratches" + x + ".png");
   }
   public String toString ()
   {

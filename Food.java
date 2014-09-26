@@ -9,10 +9,19 @@ import java.util.ArrayList;
  */
 public class Food extends Prop
 {
+  /**
+   * The constructor of Food which creates a standard Prop
+   */
   public Food ()
   {
     super ();
+    setImage ("whitePellet.png");
   }
+  
+  /**
+   * The primary method of food for moving to different locations around the Grid
+   * It picks a random empty location in the Grid to move to.
+   */
   public void moveToRandomLocation ()
   {
     if (grid != null)
@@ -21,7 +30,12 @@ public class Food extends Prop
       int x = (int)(Math.random () * l.size());
       setLoc (l.get(x));
     }
-  }  
+  }
+ 
+  /**
+   * Overriden method to express Food as a String
+   * It outputs location, direction, and Class
+   */
   public String toString ()
   {
    return super.toString() + " Food"; 

@@ -163,9 +163,7 @@ public class FullSnake extends Prop
         setScore (0);
         break;
       }
-    }
-    
-    
+    }    
   }
   
   public void keyPressed (KeyEvent k)

@@ -1,4 +1,5 @@
-
+import java.awt.Image;
+import javax.swing.ImageIcon;
 /**
  * The class for any object within the game that has a location and can be within a grid.
  * Images to be used unique to each prop may be used in the future.
@@ -15,6 +16,7 @@ public class Prop
   private Location location;
   private int direction;
   protected Grid<Prop> grid;
+  protected Image img;
   //change x and y to a location
   //implement the grid
   // add the act method and the putting in grid
@@ -72,6 +74,16 @@ public class Prop
     return grid;
   }
   
+  public Image getImage ()
+  {
+   return img; 
+  }
+  
+  public void setImage (String imageName)
+  {
+    ImageIcon ii = new ImageIcon (imageName);
+    img = ii.getImage();
+  }
   /**
    * To be overrided to make props do stuff
    */
