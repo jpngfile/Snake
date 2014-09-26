@@ -1,3 +1,10 @@
+
+/**
+ * This is a data class for any given location in a grid.
+ * 
+ * @author Jason P'ng
+ * @version 2.3 September 26th, 2014
+ */
 public class Location
 {
  int x,y;

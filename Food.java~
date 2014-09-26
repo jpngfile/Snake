@@ -14,4 +14,9 @@ public class Food extends Prop
       setLoc (l.get(x));
     }
   }
+  
+  public String toString ()
+  {
+   return "food"; 
+  }
 }

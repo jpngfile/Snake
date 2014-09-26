@@ -2,6 +2,15 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JPanel;
+
+/**
+ * This class controls the movement of all Props in the game
+ * This will determine the status of Props and relay that information to the game panel
+ * Will have to move out the global Props eventually
+ * 
+ * @author Jason P'ng
+ * @version 2.3 September 26th, 2014
+ */
 public class World extends Observable
 {
   GridField<Prop> map = new GridField<Prop>(19,19);
@@ -25,26 +34,20 @@ public class World extends Observable
     {
       p.act();
     }
-    if (s.get(0).getLocation().equals (f.getLocation()))
-    {
-      s.addSegment (1);
-      f.moveToRandomLocation();
-      score++;
+    score = s.getScore ();
+    if (s.isCrashed()){
+      terminateWorld();
     }
-    int y = s.s.size();
-    for (int x = 1; x < y; x++){
-      SnakeSegment sn = s.s.get (x);
-      if (s.get(0).getLocation ().equals (sn.getLocation())){
-        toast = new Boolean (true);        
+  }
+  
+  public void terminateWorld ()
+  {
+    toast = new Boolean (true);        
         s.removeSelfFromGrid ();
         s.truncate();
         f.removeSelfFromGrid ();
         setChanged ();
         notifyObservers (toast);
-        break;
-      }      
-    }
-    
   }
   
   public void initWorld (JPanel p)
@@ -53,6 +56,7 @@ public class World extends Observable
     things.clear();
     score = 0;
     toast = new Boolean (false);
+    s.setCrashed (false);
     s.putSelfInGrid (map, new Location (0,0));
     f.putSelfInGrid (map, new Location ((int)(Math.random () *18) + 1,(int)( Math.random() * 18)));
     things.add (s);

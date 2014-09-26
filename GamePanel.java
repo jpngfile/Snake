@@ -2,6 +2,14 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+
+/**
+ * This is the graphics panel to display the main game
+ * It also controls the main flow of the game and connects the world to the JFrame.
+ * 
+ * @author Jason P'ng
+ * @version 2.3 September 26th, 2014
+ */
 public class GamePanel extends JPanel
 {
   //discontinued

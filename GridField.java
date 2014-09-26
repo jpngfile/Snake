@@ -1,5 +1,12 @@
 import java.util.ArrayList;
 
+/**
+ * This is an implementation of the Grid interface to put Props on.
+ * It provides many static methods to compare locations and keeps track of the locations of the game Props
+ * 
+ * @author Jason P'ng
+ * @version 2.3 September 26th, 2014
+ */
 public class GridField<E> implements Grid<E>
 {
   public ArrayList [][] occupants;
@@ -34,7 +41,7 @@ public class GridField<E> implements Grid<E>
   public boolean isValid (Location loc)
   {
     if (loc.getX() < getNumRows() && loc.getX() >= 0 && loc.getY() < getNumCols() && loc.getY() >= 0)
-    return true;
+      return true;
     return false;
   }
   
@@ -73,12 +80,12 @@ public class GridField<E> implements Grid<E>
     ArrayList<Location> locations = new ArrayList<Location>();
     for (int x = 0; x < getNumRows ();x++)
     {
-     for (int y = 0; y < getNumCols();y++)
-     {
-       if (!occupants [x][y].isEmpty()){
-         locations.add (new Location (x,y));
-       }
-     }
+      for (int y = 0; y < getNumCols();y++)
+      {
+        if (!occupants [x][y].isEmpty()){
+          locations.add (new Location (x,y));
+        }
+      }
     }
     return locations;
   }
@@ -88,12 +95,12 @@ public class GridField<E> implements Grid<E>
     ArrayList<Location> locations = new ArrayList<Location>();
     for (int x = 0; x < getNumRows ();x++)
     {
-     for (int y = 0; y < getNumCols();y++)
-     {
-       if (occupants [x][y].isEmpty()){
-         locations.add (new Location (x,y));
-       }
-     }
+      for (int y = 0; y < getNumCols();y++)
+      {
+        if (occupants [x][y].isEmpty()){
+          locations.add (new Location (x,y));
+        }
+      }
     }
     return locations;
   }
@@ -149,44 +156,34 @@ public class GridField<E> implements Grid<E>
     return neighbours;
   }
   
-  //broken :(
   public void removeAll ()
   {
-    for (int x = 0; x < occupants.length;x++)
+    ArrayList<Location>  loc= getOccupiedLocations ();
+    for (Location l : loc)
     {
-     for (int y = 0; y < occupants[0].length;y++)
-     {
-       if (!occupants [x][y].isEmpty())
-       {
-         for (Object j : occupants [x][y])
-         {
-           ((Prop)j).removeSelfFromGrid ();
-         }
-       }
-       occupants[x][y].clear();
-     }
+      ArrayList<E> list = (ArrayList<E>)occupants[l.getX()][l.getY()];
+      for ( int z = 0; z < list.size();z++){
+        E obj = list.get(z);
+        remove (l,obj);
+      }
     }
   }
   
   public void printOccupants ()
   {
     int counter = 0;
-    for (int x = 0; x < getNumRows(); x++)
+    ArrayList<Location> loc = getOccupiedLocations();
+    for (Location l : loc)
     {
-     for (int y = 0; y < getNumCols(); y++)
-     {
-       if (!occupants[x][y].isEmpty()){
-        ArrayList<E> list = (ArrayList<E>)occupants[x][y];
-        System.out.println ("(" + x + ", " + y + ")");
-         for ( int z = 0; z < list.size();z++){
-           E obj = list.get(z);
-          System.out.println (obj.toString());
-          //band-aid solution
-          counter++;
-          //remove (new Location (x,y),obj);
-         }
-       }
-     }
+      ArrayList<E> list = (ArrayList<E>)occupants[l.getX()][l.getY()];
+      System.out.println ("(" + l.getX() + ", " + l.getY() + ")");
+      for ( int z = 0; z < list.size();z++){
+        E obj = list.get(z);
+        System.out.println (obj.toString());
+        //band-aid solution
+        counter++;
+        //remove (new Location (x,y),obj);
+      }
     }
   }
   public static int NORTH = 0;
@@ -220,40 +217,15 @@ public class GridField<E> implements Grid<E>
     return new Location (loc.getX() + xFactor, loc.getY() + yFactor);  
   }
   
- // @assert x and y are above 0
-  //Revise and make sure it works
-  //check corner cases
   public static int getDirectionTowards (Location loc1, Location loc2)
   {
-    if (loc1.equals (loc2))
-      return 0;
     int deltaX = loc2.getX() - loc1.getX();
     int deltaY = loc2.getY() - loc1.getY();
-    double angle;
-    //if the angle will be negative
-    if (deltaX * deltaY < 0){
-      angle = Math.abs (Math.toDegrees (Math.atan (deltaY/deltaX)));
-      if (loc2.getX() < loc1.getX()){
-        angle += 270;
-      }
-      else{
-        angle += 90;
-      }
-    }
-    else{
-      if (deltaY == 0)
-      {
-        if (deltaX < 0)
-          angle = 270;
-        else
-        angle = 90;        
-      }
-      else
-      angle = Math.toDegrees (Math.atan (deltaX/deltaY));
-      if (loc2.getX() <= loc1.getX() && loc2.getY() < loc1.getY() ){
-        angle += 180;
-      }
-    }
+    //atan2 converts coordinates to a polar grid; it returns the angle
+    double angle = Math.toDegrees (Math.atan2 (deltaY,deltaX));
+    angle = 90 - angle;
+    if (angle < 0)
+      angle+= 360;
     return formatDirection ((float)angle);
   }
 }

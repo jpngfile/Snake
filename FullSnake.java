@@ -1,16 +1,26 @@
 import java.util.ArrayList;
 import java.awt.event.*;
 
-//This contains multiple snake segments.
-//It acts for the snake segments which otherwise do nothing at all.
+/**
+ * This is a container Prop to hold several SnakeSegments together
+ * It is not on the grid but acts for the segments that do nothing alone.
+ * It has it's own score based on it's length.
+ * 
+ * @author Jason P'ng
+ * @version 2.3 September 26th, 2014
+*/
 public class FullSnake extends Prop
 {
   ArrayList<SnakeSegment> s = new ArrayList<SnakeSegment>();
   int length;
+  int score;
+  boolean crashed;
   public FullSnake (int length)
   {
     super ();
     this.length = length;
+    crashed = false;
+    score = 0;
     for (int x = 0; x < length; x++)
     {
       s.add (new SnakeSegment ());
@@ -84,6 +94,26 @@ public class FullSnake extends Prop
     return get(0).getDirection();
   }
   
+  public boolean isCrashed ()
+  {
+   return crashed; 
+  }
+  
+  public void setCrashed (boolean crsh)
+  {
+   crashed = crsh; 
+  }
+  
+  public int getScore ()
+  {
+   return score; 
+  }
+  
+  public void setScore (int newScore)
+  {
+   score = newScore; 
+  }
+  
   public void act ()
   {
     for (int x = s.size() - 1;x > 0;x--)
@@ -115,6 +145,27 @@ public class FullSnake extends Prop
       }
         break;  
   }
+    ArrayList<Prop> list = grid.get (s.get(0).getLocation());
+    for (Prop p :list)
+    {
+    if (p instanceof Food)
+    {
+      addSegment (1);
+      ((Food)p).moveToRandomLocation();
+      score++;
+      break;
+    }
+    }
+    for (int x = 1; x < length; x++){
+      SnakeSegment sn = s.get (x);
+      if (s.get(0).getLocation ().equals (sn.getLocation())){
+        setCrashed (true);
+        setScore (0);
+        break;
+      }
+    }
+    
+    
   }
   
   public void keyPressed (KeyEvent k)
@@ -151,5 +202,10 @@ public class FullSnake extends Prop
       case KeyEvent.VK_SPACE :
         System.out.println (s.get(0).getLocation().toString());
   }
+  }
+  
+  public String toString ()
+  {
+    return get(0).toString() + " Length: " + length + " Full Snake";
   }
 }

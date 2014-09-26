@@ -1,3 +1,11 @@
+
+/**
+ * The class for any object within the game that has a location and can be within a grid.
+ * Images to be used unique to each prop may be used in the future.
+ * 
+ * @author Jason P'ng
+ * @version 2.3 September 26th, 2014
+ */
 public class Prop
 {
   final static int UP = 0;
@@ -11,8 +19,7 @@ public class Prop
   //implement the grid
   // add the act method and the putting in grid
   public Prop ()
-  {
-    
+  {    
    direction = RIGHT;
    grid = null;
   }
@@ -64,7 +71,10 @@ public class Prop
   {
     return grid;
   }
-  //To be overrided to make props do stuff
+  
+  /**
+   * To be overrided to make props do stuff
+   */
   public void act ()
   {
     
@@ -72,6 +82,9 @@ public class Prop
   
   public String toString ()
   {
-    return "prop";
+    if (location != null)
+    return location.toString() + " " + direction;
+    else
+      return "null " + direction;
   }
 }

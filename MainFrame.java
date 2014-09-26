@@ -3,6 +3,14 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.Observer;
 import java.util.Observable;
+
+/**
+ * The frame to hold the panels and contain the program.
+ * It controls the movement between JPanels
+ * 
+ * @author Jason P'ng
+ * @version 2.3 September 26th, 2014
+ */
 public class MainFrame extends JFrame implements ActionListener,Observer
 {
   JPanel mainPanel;
@@ -10,7 +18,7 @@ public class MainFrame extends JFrame implements ActionListener,Observer
   public MainFrame ()
   {
     setSize (493,515);
-    //setDecorated (false);
+    //setUndecorated (true);
     gamePanel = new GamePanel ();
     mainPanel = new JPanel (new CardLayout ());
     mainPanel.setPreferredSize (new Dimension (493,515));

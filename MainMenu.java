@@ -4,6 +4,15 @@ import java.awt.event.*;
 import javax.imageio.*;
 import java.awt.image.*;
 import java.io.*;
+
+/**
+ * This is the panel which contains the main menu buttons.
+ * Most of the code is just modifying the buttons.
+ * This class is prone to change for different looks and feels
+ * 
+ * @author Jason P'ng
+ * @version 2.3 September 26th, 2014
+ */
 public class MainMenu extends JPanel implements ActionListener
 {
   JFrame parent;

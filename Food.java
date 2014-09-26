@@ -1,4 +1,12 @@
 import java.util.ArrayList;
+/**
+ * This is the prop for all items that the snake will eat.
+ * It moves to a random location whenever it is eaten.
+ * Perhaps in the future variations will be added.
+ * 
+ * @author Jason P'ng
+ * @version 2.3 September 26th, 2014
+ */
 public class Food extends Prop
 {
   public Food ()
@@ -13,10 +21,9 @@ public class Food extends Prop
       int x = (int)(Math.random () * l.size());
       setLoc (l.get(x));
     }
-  }
-  
+  }  
   public String toString ()
   {
-   return "food"; 
+   return super.toString() + " Food"; 
   }
 }

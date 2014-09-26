@@ -25,6 +25,16 @@ public class Prop
     gr.put (loc, this);
   }
   
+  public void removeSelfFromGrid ()
+  {
+    if (grid == null)
+    {
+      throw new IllegalStateException ("Not in grid");
+    }
+    grid.remove (location,this);
+    //location = null;
+    grid = null;
+  }
   public void setDirection (int dir)
   {
     this.direction = dir;
@@ -39,7 +49,7 @@ public class Prop
   {
    if (grid == null)
      throw new IllegalStateException ("Not in a grid");
-   if (grid.isValid (loc)){    
+   if (grid.isValid (loc)){
      grid.remove (location, this);
      grid.put (loc, this);
        location = loc;
@@ -58,5 +68,10 @@ public class Prop
   public void act ()
   {
     
+  }
+  
+  public String toString ()
+  {
+    return "prop";
   }
 }
