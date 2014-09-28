@@ -19,14 +19,18 @@ public class World extends Observable
   Food f = new Food ();
   public Boolean toast;
   public int score;
+  
+  /**
+   * A constructor for a world.
+   */
   public World ()
   {
     //add error things    
   }
   
   /**
-   * each thing performs its act method
-   * it will move through the grid
+   * Runs each Props act method.
+   * It updates the score and terminates the world if the snake has crashed.
    */
   public void update ()
   {
@@ -40,6 +44,10 @@ public class World extends Observable
     }
   }
   
+  /**
+   * Runs the world termination sequences which includes: <br>
+   * Removes the global objects from the Grid, shortens the snake, and notifies the main frame that the game has ended.
+   */
   public void terminateWorld ()
   {
     toast = new Boolean (true);        
@@ -50,10 +58,17 @@ public class World extends Observable
         notifyObservers (toast);
   }
   
+  /**
+   * The code for setting up a world for a new game. This is called not when world is constructed but when a new game starts.
+   * It needs JPanel so it can add the JFrame as an Observer.
+   * 
+   * @param JPanel The game panel this world is connected to.
+   */
   public void initWorld (JPanel p)
   {
     //map.printOccupants();
     things.clear();
+    map.removeAll();
     score = 0;
     toast = new Boolean (false);
     s.setCrashed (false);
@@ -65,6 +80,11 @@ public class World extends Observable
     addObserver ((Observer)(p.getParent().getParent().getParent().getParent().getParent()));
   }
   
+  /**
+   * Gets the Grid this world uses.
+   * 
+   * @return The Grid that the map implements.
+   */
   public Grid<Prop> getMap ()
   {
     return map;

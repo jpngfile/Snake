@@ -9,12 +9,24 @@ import java.awt.*;
  */
 public class SnakeSegment extends Prop
 {
+  
+  /**
+   * The constructor of a basic SnakeSegment.
+   */
   public SnakeSegment ()
   {
     super ();
-    int x = (int)(Math.random()*10) + 1;
-    setImage ("whiteScratches" + x + ".png");
+//    int x = (int)(Math.random()*10) + 1;
+//    setImage ("whiteScratches" + x + ".png");
+    setImage("snakeBody.png");
   }
+  
+  /**
+   * Gets a String representation of the snake segment.
+   * 
+   * @return The location, direction, and "Snake Segment".
+   */
+  @Override
   public String toString ()
   {
    return super.toString() + " Snake Segment"; 

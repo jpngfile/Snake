@@ -36,6 +36,7 @@ public class Food extends Prop
    * Overriden method to express Food as a String
    * It outputs location, direction, and Class
    */
+  @Override
   public String toString ()
   {
    return super.toString() + " Food"; 

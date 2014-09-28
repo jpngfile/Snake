@@ -9,6 +9,10 @@
  */
 public class SnakeRunner
 {
+  /**
+   * The driver method of the whole program.
+   *@param args Arguments to be accepted when run.
+   */
  public static void main (String [] args)
  {
    new MainFrame ();

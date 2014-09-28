@@ -17,6 +17,12 @@ public class MainMenu extends JPanel implements ActionListener
 {
   JFrame parent;
   BufferedImage img;
+  
+  /**
+   * The main constructor of the main menu panel
+   * 
+   * @param parent The JFrame this JPanel is within. This is used to make use of the JFrame actionPerformed method.
+   */
   public MainMenu (JFrame parent)
   {
     this.parent = parent;
@@ -88,11 +94,22 @@ public class MainMenu extends JPanel implements ActionListener
     }
   }
   
+  /**
+   * Paint method for custom painting.
+   * 
+   * @param g The graphics used for this panel
+   */
+  @Override
   protected void paintComponent (Graphics g)
   {
     super.paintComponent (g);
     g.drawImage (img,0,0,null);
   }
+  
+  /**
+   * Button action event response method which uses the parent method to get access to other panels.
+   * @param ae The event triggering this method.
+   */
   public void actionPerformed (ActionEvent ae)
   {
     ((ActionListener)parent).actionPerformed (ae);

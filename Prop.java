@@ -17,14 +17,22 @@ public class Prop
   private int direction;
   protected Grid<Prop> grid;
   protected Image img;
-  //change x and y to a location
-  //implement the grid
-  // add the act method and the putting in grid
+  
+  /**
+   * The main constructor of a Prop
+   */
   public Prop ()
   {    
    direction = RIGHT;
    grid = null;
   }
+  
+  /**
+   * Puts this Prop into a grid at a certain location.
+   * 
+   * @param gr The grid to be put in.
+   * @param loc The location in the grid to be on.
+   */
   public void putSelfInGrid (Grid<Prop> gr, Location loc)
   {    
     if (!gr.isValid(loc)){
@@ -34,6 +42,9 @@ public class Prop
     gr.put (loc, this);
   }
   
+  /**
+   * Removes the Prop from its current grid and location
+   */
   public void removeSelfFromGrid ()
   {
     if (grid == null)
@@ -44,16 +55,32 @@ public class Prop
     //location = null;
     grid = null;
   }
+  
+  /**
+   * Sets the direction of the Prop. May be used to rotate the image of the Prop.
+   *
+   * @param dir The direction to be set to.
+   */
   public void setDirection (int dir)
   {
     this.direction = dir;
   }
   
+  /**
+   * Gets the current direction of the prop.
+   * 
+   * @return The direction of the Prop.
+   */
   public int getDirection ()
   {
     return direction;
   }
   
+  /**
+   * Sets the location of the Prop
+   * 
+   * @param loc The location for the Prop to be moved to.
+   */
   public void setLoc (Location loc)
   {
    if (grid == null)
@@ -64,34 +91,61 @@ public class Prop
        location = loc;
    }
   }
+  
+  /**
+   * Gets the current location of the prop
+   * 
+   * @return A Location of the prop.
+   */
   public Location getLocation ()
   {
    return location; 
   }
   
+  /**
+   * Gets the grid that the prop is on.
+   * 
+   * @return The grid the Prop is in.
+   */
   public Grid<Prop> getGrid ()
   {
     return grid;
   }
   
+  /**
+   * Gets the Image that represents the Prop
+   * 
+   * @return The Image of the Prop. Currently, the base image of Prop is null.
+   */
   public Image getImage ()
   {
    return img; 
   }
   
+  /**
+   * Sets the image of the Prop
+   * 
+   * @param imageName The name of the file of the Image.
+   */
   public void setImage (String imageName)
   {
     ImageIcon ii = new ImageIcon (imageName);
     img = ii.getImage();
   }
   /**
-   * To be overrided to make props do stuff
+   * To be overrided to make props do stuff.
    */
   public void act ()
   {
     
   }
   
+  /**
+   * Gets a String representation of the Prop. it returns the location and the direction of the Prop.
+   * 
+   * @return Location and direction of the prop.
+   */
+  @Override
   public String toString ()
   {
     if (location != null)
