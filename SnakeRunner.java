@@ -4,6 +4,11 @@
  * Clean design
  * This is the runner program for the application
  * 
+ * Upcoming updates - 3.0
+ * Get rid of global variables in World and gamePanel; better encapsulation
+ * Redesign menu and gameplay
+ * add music
+ * 
  * @author Jason P'ng
  * @version 2.3 September 26th, 2014
  */

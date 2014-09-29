@@ -86,6 +86,7 @@ public class GamePanel extends JPanel
     g.drawString (Integer.toString (w.score), 10,20);
     //why doesn't this work?
     Grid gr = w.getMap();
+    //One time, this crashed because it requested an empty location in which the arraylist had a size of 0.
     for (Location l : w.getMap().getOccupiedLocations())
     {
       //This inverts the location so the grid is easier to use. Up and right is positive.
