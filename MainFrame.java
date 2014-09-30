@@ -31,6 +31,7 @@ public class MainFrame extends JFrame implements ActionListener,Observer
     mainPanel.add ("game",gamePanel);
     mainPanel.setFocusable (true);
     mainPanel.addKeyListener (new KListen());
+    SoundPlayer s = new SoundPlayer();
     add (mainPanel);
     show ("menu");
     setLocation (400,100);
@@ -99,7 +100,7 @@ public class MainFrame extends JFrame implements ActionListener,Observer
     {
       int k = e.getKeyCode ();
       if (k == KeyEvent.VK_M){
-        gamePanel.w.s.setCrashed (true);
+        gamePanel.getWorld().crashGame();
       }
       else if (k == KeyEvent.VK_ENTER)
       {

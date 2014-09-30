@@ -1,0 +1,13 @@
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.net.URL;
+
+public class SoundPlayer
+{
+  public static void main (String [] args) throws Exception
+  {
+   URL url = this.class.getResource ("nom.wma");
+   AudioClip clip = Applet.newAudioClip (url);
+   clip.play ();
+  }
+}

@@ -15,8 +15,6 @@ public class World extends Observable
 {
   GridField<Prop> map = new GridField<Prop>(19,19);
   ArrayList<Prop> things = new ArrayList<Prop>();
-  FullSnake s = new FullSnake (5);
-  Food f = new Food ();
   public Boolean toast;
   public int score;
   
@@ -38,10 +36,13 @@ public class World extends Observable
     {
       p.act();
     }
-    score = s.getScore ();
-    if (s.isCrashed()){
+    for (Prop p : getProp (new FullSnake(0).getClass())){
+      score = Math.max (((FullSnake)p).getScore(),score);
+      if (((FullSnake)p).isCrashed()){
       terminateWorld();
+      break;
     }
+    }    
   }
   
   /**
@@ -51,11 +52,9 @@ public class World extends Observable
   public void terminateWorld ()
   {
     toast = new Boolean (true);        
-        s.removeSelfFromGrid ();
-        s.truncate();
-        f.removeSelfFromGrid ();
-        setChanged ();
-        notifyObservers (toast);
+    map.removeAll();
+    setChanged ();
+    notifyObservers (toast);
   }
   
   /**
@@ -71,7 +70,9 @@ public class World extends Observable
     map.removeAll();
     score = 0;
     toast = new Boolean (false);
-    s.setCrashed (false);
+    //s.setCrashed (false);
+    FullSnake s = new FullSnake (5);
+    Food f = new Food();
     s.putSelfInGrid (map, new Location (0,0));
     f.putSelfInGrid (map, new Location ((int)(Math.random () *18) + 1,(int)( Math.random() * 18)));
     things.add (s);
@@ -80,6 +81,28 @@ public class World extends Observable
     addObserver ((Observer)(p.getParent().getParent().getParent().getParent().getParent()));
   }
   
+  public ArrayList<Prop> getProp (Class type)
+  {
+    ArrayList<Prop> list = new ArrayList<Prop>();
+    for (Prop p : things)
+    {     
+      if (p.getClass().equals (type))
+      {
+        list.add (p);
+      }
+    }
+    return list;
+  }
+  
+  /**
+   * Crashes every snake in the game to end it prematurely
+   */
+  public void crashGame ()
+  {
+    for (Prop p : getProp (new FullSnake(0).getClass())){
+      ((FullSnake)p).setCrashed (true);
+    }
+  }
   /**
    * Gets the Grid this world uses.
    * 
@@ -89,5 +112,4 @@ public class World extends Observable
   {
     return map;
   }
-  
 }

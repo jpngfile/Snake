@@ -1,5 +1,6 @@
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import java.awt.event.*;
 /**
  * The class for any object within the game that has a location and can be within a grid.
  * Images to be used unique to each prop may be used in the future.
@@ -152,5 +153,13 @@ public class Prop
     return location.toString() + " " + direction;
     else
       return "null " + direction;
+  }
+  
+  /**
+   * To be overriden by Props that use keyboard input
+   */
+  public void keyPressed (KeyEvent k)
+  {
+    
   }
 }

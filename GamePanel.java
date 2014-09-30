@@ -81,9 +81,7 @@ public class GamePanel extends JPanel
   {
     super.paintComponent (g);
     g.setColor (Color.BLACK);
-    g.fillRect (0,0,500,500);
-    g.setColor (Color.WHITE);
-    g.drawString (Integer.toString (w.score), 10,20);
+    g.fillRect (0,0,500,500);    
     //why doesn't this work?
     Grid gr = w.getMap();
     //One time, this crashed because it requested an empty location in which the arraylist had a size of 0.
@@ -99,8 +97,19 @@ public class GamePanel extends JPanel
        g.drawImage (p.getImage(),25*loc.getX(),25*loc.getY() - 25,null); 
       }
     }
+    g.setColor (Color.WHITE);
+    g.drawString (Integer.toString (w.score), 10,20);
   }
   
+  /**
+   * Accessor method to get the world used by the game panel.
+   * 
+   * @return the World instance in use.
+   */
+  public World getWorld ()
+  {
+   return w; 
+  }
   /**
    * Provides a String identifying the class.
    * 
@@ -120,7 +129,8 @@ public class GamePanel extends JPanel
    */
   public void keyPressed (KeyEvent k)
   {
-      w.s.keyPressed (k);
+    for (Prop p : w.getProp (new FullSnake(0).getClass())){
+      p.keyPressed (k);}
     if (k.getKeyCode () == KeyEvent.VK_P)
     {
       pause = !pause;

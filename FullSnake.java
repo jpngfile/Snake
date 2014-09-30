@@ -222,6 +222,7 @@ public class FullSnake extends Prop
         addSegment (1);
         ((Food)p).moveToRandomLocation();
         score++;
+        SoundPlayer.playNomClip();
         break;
       }
     }

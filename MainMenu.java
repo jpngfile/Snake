@@ -29,8 +29,8 @@ public class MainMenu extends JPanel implements ActionListener
     SpringLayout layout = new SpringLayout ();
     setSize (parent.getSize());
     setLayout (layout);
-    ImageIcon playIcon = new ImageIcon ("playRolloverIcon.png");
-    ImageIcon quitIcon = new ImageIcon ("quitRolloverIcon.png");
+    ImageIcon playIcon = new ImageIcon ("playIcon.png");
+    ImageIcon quitIcon = new ImageIcon ("quitIcon.png");
     Image img1 = playIcon.getImage();
     img1 = img1.getScaledInstance (75,75,Image.SCALE_SMOOTH);
     Image img2 = quitIcon.getImage();
@@ -77,8 +77,8 @@ public class MainMenu extends JPanel implements ActionListener
     playButton.setBorder (null);
     quitButton.setBorder (null);
     //Put the buttons on top of each other
-    layout.putConstraint  (SpringLayout.NORTH,playButton,125,SpringLayout.NORTH,this);
-    layout.putConstraint  (SpringLayout.NORTH,quitButton,225,SpringLayout.NORTH,this);
+    layout.putConstraint  (SpringLayout.NORTH,playButton,170,SpringLayout.NORTH,this);
+    layout.putConstraint  (SpringLayout.NORTH,quitButton,280,SpringLayout.NORTH,this);
     
     //center the buttons
     layout.putConstraint (SpringLayout.WEST,playButton,(int)((this.getSize().getWidth()/2)-(playButton.getSize().getWidth())/2),SpringLayout.WEST,this);
