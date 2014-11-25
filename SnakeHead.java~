@@ -1,9 +1,0 @@
-public class SnakeHead extends SnakeSegment
-{
- public SnakeHead ()
- {
-  super();
-  setImage ("snakeHead.png");
- }
-  
-}

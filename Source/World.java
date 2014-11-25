@@ -36,7 +36,7 @@ public class World extends Observable
     {
       p.act();
     }
-    for (Prop p : getProp (new FullSnake(0).getClass())){
+    for (Prop p : getProp (FullSnake.class)){
       score = Math.max (((FullSnake)p).getScore(),score);
       if (((FullSnake)p).isCrashed()){
       terminateWorld();
@@ -60,6 +60,7 @@ public class World extends Observable
   /**
    * The code for setting up a world for a new game. This is called not when world is constructed but when a new game starts.
    * It needs JPanel so it can add the JFrame as an Observer.
+   * EDIT: The JPanel could have been removed from the param if the GamePanel became the Observable object.
    * 
    * @param JPanel The game panel this world is connected to.
    */
@@ -81,8 +82,15 @@ public class World extends Observable
     addObserver ((Observer)(p.getParent().getParent().getParent().getParent().getParent()));
   }
   
+  /**
+   * Gets a certain kind of prop from the world.
+   * 
+   * @return An ArrayList of Props of the class specified
+   * @param The kind of Prop to be retrieved.
+   */
   public ArrayList<Prop> getProp (Class type)
   {
+    //type when called should use the static class. e.g. FullSnake.class
     ArrayList<Prop> list = new ArrayList<Prop>();
     for (Prop p : things)
     {     

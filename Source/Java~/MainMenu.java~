@@ -19,7 +19,8 @@ public class MainMenu extends JPanel implements ActionListener
   BufferedImage img;
   
   /**
-   * The main constructor of the main menu panel
+   * The main constructor of the main menu panel.
+   * Edit: Code could be reduced by putting the setup in a new method.
    * 
    * @param parent The JFrame this JPanel is within. This is used to make use of the JFrame actionPerformed method.
    */

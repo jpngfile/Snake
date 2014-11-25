@@ -110,6 +110,7 @@ public class GamePanel extends JPanel
   {
    return w; 
   }
+  
   /**
    * Provides a String identifying the class.
    * 
